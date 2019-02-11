@@ -8,13 +8,14 @@ public class PlayerMovement : MonoBehaviour
     PassButton passButton;
     Rigidbody Player;
     bool passing;
-    
+    Ball ball;
     // Start is called before the first frame update
     void Start()
     {
         joyStick = FindObjectOfType<Joystick>();
         passButton = FindObjectOfType<PassButton>();
         Player = GetComponent<Rigidbody>();
+        ball = FindObjectOfType<Ball>();
     }
 
     // Update is called once per frame
@@ -39,11 +40,23 @@ public class PlayerMovement : MonoBehaviour
         return transform.childCount > 0;
     }
 
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    Debug.Log("colliding");
+       
+    //    if(ball != null)
+    //    {
+           
+    //    }
+    //}
+
+    void OnCollisionEnter(Collision other)
     {
-        Ball ball = other.GetComponent<Ball>();
-        if(ball != null)
+        
+        //if(other.gameObject.layer == 10)
+        if (other.gameObject.tag == "Ball")
         {
+            Debug.Log("colliding");
             ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
             ball.GetComponent<Rigidbody>().isKinematic = true;
             ball.transform.SetParent(transform);
