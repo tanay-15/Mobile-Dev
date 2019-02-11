@@ -498,6 +498,7 @@ GameObject:
   - component: {fileID: 347535660}
   - component: {fileID: 347535659}
   - component: {fileID: 347535663}
+  - component: {fileID: 347535664}
   m_Layer: 0
   m_Name: RedMember
   m_TagString: Team1
@@ -515,8 +516,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.59
+  m_Height: 2.12
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &347535660
@@ -594,6 +595,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &347535664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347535658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23a600c757161a41ad3c4631e92f2b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &357914225
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +650,7 @@ GameObject:
   - component: {fileID: 410368352}
   - component: {fileID: 410368351}
   - component: {fileID: 410368350}
+  - component: {fileID: 410368355}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -671,7 +685,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.53
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &410368352
 MeshRenderer:
@@ -732,6 +746,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &410368355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410368349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e72ef513b42fd4442adf32257d87ad37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &993985778
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,6 +835,7 @@ GameObject:
   - component: {fileID: 1116465064}
   - component: {fileID: 1116465066}
   - component: {fileID: 1116465065}
+  - component: {fileID: 1116465067}
   m_Layer: 5
   m_Name: Pass
   m_TagString: Untagged
@@ -832,7 +859,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 363, y: -225}
+  m_AnchoredPosition: {x: 437, y: -231.7}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1116465065
@@ -872,6 +899,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1116465063}
   m_CullTransparentMesh: 0
+--- !u!114 &1116465067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116465063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4b77b61f65fa547949b8db56013d05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pressed: 0
 --- !u!1 &1263933282
 GameObject:
   m_ObjectHideFlags: 0
@@ -1593,7 +1633,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 419, y: -180}
+  m_AnchoredPosition: {x: 487, y: -180}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1954528343
