@@ -32,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
                 passing = true;
                 ball.transform.parent = null;
                 ball.GetComponent<Rigidbody>().isKinematic = false;
-                ball.GetComponent<Rigidbody>().velocity = direction.normalized * 5f;
+                Debug.Log("before applying force");
+                ball.GetComponent<Rigidbody>().velocity = direction.normalized * 20f;
                 //ball.GetComponent<Rigidbody>().velocity;
 
 
