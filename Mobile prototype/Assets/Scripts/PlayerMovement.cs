@@ -23,11 +23,22 @@ public class PlayerMovement : MonoBehaviour
     {
         Player.velocity = new Vector3(joyStick.Horizontal * 10f, Player.velocity.y, joyStick.Vertical * 10f);
         
-
-        if(!passing && passButton.pressed)
+        if(IhaveBall())
         {
-            passing = true;
+            Vector3 direction = new Vector3(joyStick.Horizontal, 0, joyStick.Vertical);
+            Debug.DrawRay(transform.position, direction * 10f, Color.red);
+            if (!passing && passButton.pressed)
+            {
+                passing = true;
+                ball.transform.parent = null;
+                ball.GetComponent<Rigidbody>().isKinematic = false;
+                ball.GetComponent<Rigidbody>().velocity = direction.normalized * 5f;
+                //ball.GetComponent<Rigidbody>().velocity;
+
+
+            }
         }
+       
 
         if (passing && !passButton.pressed)
         {
