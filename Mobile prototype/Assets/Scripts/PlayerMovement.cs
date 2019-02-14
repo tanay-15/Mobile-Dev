@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody Player;
     bool passing;
     Ball ball;
+
+    private Vector3 warp1pos;
+    private Vector3 warp2pos;
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +75,25 @@ public class PlayerMovement : MonoBehaviour
             ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
             ball.GetComponent<Rigidbody>().isKinematic = true;
             ball.transform.SetParent(transform);
+        }
+
+        if(other.gameObject.tag == "Warphole")
+        {
+            if(other.gameObject.name == "WarpHole")
+            {
+                Debug.Log(other.gameObject.name);
+                warp2pos = other.gameObject.transform.parent.GetComponent<WarpHoles>().GetPartnerPosition2();
+                this.transform.position = warp2pos;
+                
+            }
+
+            if(other.gameObject.name == "WarpHole1")
+            {
+                Debug.Log(other.gameObject.name);
+                warp1pos = other.gameObject.transform.parent.GetComponent<WarpHoles>().GetPartnerPosition();
+                this.transform.position = warp1pos;
+            }
+
         }
     }
 }

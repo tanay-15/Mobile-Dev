@@ -15,16 +15,22 @@ public class WarpHoles : MonoBehaviour
     public GameObject warp_partner2;
     private GameObject warp_position2;
 
+    public CapsuleCollider warp1collider;
+    public CapsuleCollider warp2collider;
+
 
     void Start()
     {
         warp_position1 = warp_partner1.transform.GetChild(0).gameObject;
         warp_position2 = warp_partner2.transform.GetChild(0).gameObject;
+
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+        #region Touchcollision
         if (Input.touchCount > 0)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
@@ -53,6 +59,28 @@ public class WarpHoles : MonoBehaviour
                 }
             }
         }
+        #endregion
+
+
     }
-      
+
+
+    void MyFunction()
+    {
+       
+    }
+
+
+    public Vector3 GetPartnerPosition()
+    {
+        return warp_position1.transform.position;
+    }
+
+    public Vector3 GetPartnerPosition2()
+    {
+        return warp_position2.transform.position;
+    }
+
+   
+
 }
