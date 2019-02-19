@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
             ball.transform.SetParent(transform);
         }
 
-        if(other.gameObject.tag == "Warphole")
+     /*   if(other.gameObject.tag == "Warphole")
         {
             if(other.gameObject.name == "WarpHole")
             {
@@ -94,6 +94,6 @@ public class PlayerMovement : MonoBehaviour
                 this.transform.position = warp1pos;
             }
 
-        }
+        }*/
     }
 }
