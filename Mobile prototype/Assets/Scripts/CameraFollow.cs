@@ -11,12 +11,13 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         ball = GameObject.Find("Ball");
-        offset = this.transform.position;
+        offset = this.transform.position - ball.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = ball.transform.position + offset;
+        Vector3 position = ball.transform.position + offset;
+        transform.position = Vector3.Slerp(transform.position, position, 1.0f);
     }
 }
