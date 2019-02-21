@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody Player;
     bool passing;
     Ball ball;
-
+    bool ballisChild = false;
     private Vector3 warp1pos;
     private Vector3 warp2pos;
     // Start is called before the first frame update
@@ -48,6 +48,11 @@ public class PlayerMovement : MonoBehaviour
         {
             passing = false;
         }
+
+        if(ballisChild)
+        {
+            ball.transform.SetParent(transform);
+        }
     }
 
     private bool IhaveBall()
@@ -75,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
             ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
             ball.GetComponent<Rigidbody>().isKinematic = true;
             ball.transform.SetParent(transform);
+            ballisChild = true;
         }
 
      /*   if(other.gameObject.tag == "Warphole")
