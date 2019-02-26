@@ -9,8 +9,24 @@ public class AIMovement : MonoBehaviour
     public GameObject ball;
     public GameObject goalPost;
 
+    public enum PlayerRole
+    {
+        Default,
+        Forward,
+        Midfielder,
+        Defender,
+        Goalkeeper
+    }
+
+    public PlayerRole role;
+
+
     public float MoveSpeed;
     private bool HasBall = false;
+    private bool MoveTowardsBall = false;
+
+    public Collider[] nearbyColliders;
+
 
     void Start()
     {
@@ -50,10 +66,14 @@ public class AIMovement : MonoBehaviour
 
     void Movement()
     {
-        if (!HasBall)
+        if (MoveTowardsBall)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
+            if (!HasBall)
+            {
+                this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
+            }
         }
+        
        
     }
 
@@ -66,6 +86,66 @@ public class AIMovement : MonoBehaviour
             ball.GetComponent<Rigidbody>().isKinematic = true;
             ball.transform.SetParent(transform);
             HasBall = true;
+            MoveTowardsBall = false;
         }
+    }
+
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Ball")
+        {
+            MoveTowardsBall = true;
+        }
+
+     
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.tag == "Ball")
+        {
+            MoveTowardsBall = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "Ball")
+        {
+            MoveTowardsBall = false;
+        }
+    }
+
+
+
+    //////           Behaviours               
+    
+    void ForwardBehaviour()
+    {
+
+
+    }
+
+    void MidBehaviour()
+    {
+
+    }
+
+    void DefenderBeahviour()
+    {
+
+    }
+
+    void GoalieBehaviour()
+    {
+
+    }
+
+    void AIPassing()
+    {
+
     }
 }
