@@ -60,15 +60,7 @@ public class PlayerMovement : MonoBehaviour
         return transform.childCount > 0;
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    Debug.Log("colliding");
-       
-    //    if(ball != null)
-    //    {
-           
-    //    }
-    //}
+  
 
     void OnCollisionEnter(Collision other)
     {
@@ -83,23 +75,6 @@ public class PlayerMovement : MonoBehaviour
             ballisChild = true;
         }
 
-     /*   if(other.gameObject.tag == "Warphole")
-        {
-            if(other.gameObject.name == "WarpHole")
-            {
-                Debug.Log(other.gameObject.name);
-                warp2pos = other.gameObject.transform.parent.GetComponent<WarpHoles>().GetPartnerPosition2();
-                this.transform.position = warp2pos;
-                
-            }
-
-            if(other.gameObject.name == "WarpHole1")
-            {
-                Debug.Log(other.gameObject.name);
-                warp1pos = other.gameObject.transform.parent.GetComponent<WarpHoles>().GetPartnerPosition();
-                this.transform.position = warp1pos;
-            }
-
-        }*/
+ 
     }
 }

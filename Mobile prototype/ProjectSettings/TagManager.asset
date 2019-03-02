@@ -11,6 +11,9 @@ TagManager:
   - Team1GoalPost
   - Team2GoalPost
   - Team2
+  - ForwardArea
+  - MidArea
+  - DefenderArea
   layers:
   - Default
   - TransparentFX

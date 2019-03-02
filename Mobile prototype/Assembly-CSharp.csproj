@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\PassButton.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
+    <Compile Include="Assets\Scripts\TeamAI.cs" />
     <Compile Include="Assets\Scripts\WarpHoles.cs" />
     <Compile Include="Assets\Scripts\WarpSolo.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
