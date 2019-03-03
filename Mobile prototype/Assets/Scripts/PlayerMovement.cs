@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     bool passing = false;
     bool shooting = false;
     Ball ball;
-    bool ballisChild = false;
+    public bool ballisChild = false;
     private Vector3 warp1pos;
     private Vector3 warp2pos;
     // Start is called before the first frame update
@@ -63,16 +63,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private bool IhaveBall()
+    public bool IhaveBall()
     {
         return transform.childCount > 0;
     }
 
-  
-
     void OnCollisionEnter(Collision other)
-    {
-        
+    {     
         //if(other.gameObject.layer == 10)
         if (other.gameObject.tag == "Ball")
         {
@@ -83,7 +80,6 @@ public class PlayerMovement : MonoBehaviour
             ballisChild = true;
         }
 
- 
     }
 
     public void GetTackled(Vector3 _knockbackForce)
