@@ -6,8 +6,10 @@ public class PlayerMovement : MonoBehaviour
 {
     Joystick joyStick;
     PassButton passButton;
+    ShootButton shootButton;
     Rigidbody Player;
-    bool passing;
+    bool passing = false;
+    bool shooting = false;
     Ball ball;
     bool ballisChild = false;
     private Vector3 warp1pos;
@@ -17,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     {
         joyStick = FindObjectOfType<Joystick>();
         passButton = FindObjectOfType<PassButton>();
+        shootButton = FindObjectOfType<ShootButton>();
         Player = GetComponent<Rigidbody>();
         ball = FindObjectOfType<Ball>();
     }
@@ -35,11 +38,16 @@ public class PlayerMovement : MonoBehaviour
                 passing = true;
                 ball.transform.parent = null;
                 ball.GetComponent<Rigidbody>().isKinematic = false;
-                Debug.Log("before applying force");
                 ball.GetComponent<Rigidbody>().velocity = direction.normalized * 20f;
                 //ball.GetComponent<Rigidbody>().velocity;
+            }
 
-
+            if(!shooting && shootButton.bPressed)
+            {
+                shooting = true;
+                ball.transform.parent = null;
+                ball.GetComponent<Rigidbody>().isKinematic = false;
+                ball.GetComponent<Rigidbody>().velocity = direction.normalized * 30f;
             }
         }
        
