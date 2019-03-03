@@ -45,7 +45,7 @@ public class AIMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        //Movement();
         //Shoot();
         GetBallPossession();
 
@@ -53,6 +53,11 @@ public class AIMovement : MonoBehaviour
         if (role == PlayerRole.Forward)
         {
             ForwardBehaviour();
+        }
+
+        if(role == PlayerRole.Defender)
+        {
+            DefenderBeahviour();
         }
     }
 
@@ -82,6 +87,22 @@ public class AIMovement : MonoBehaviour
             
 
            
+        }
+    }
+
+    void Pass(Vector3 _passlocation)
+    {
+        if (HasBall)
+        {
+            var heading = _passlocation - this.transform.position;
+
+            var distance = heading.magnitude;
+            var direction = heading / distance;
+            ball.transform.parent = null;
+            ball.GetComponent<Rigidbody>().isKinematic = false;
+
+            ball.GetComponent<Rigidbody>().velocity = direction.normalized * 20f;
+            HasBall = false;
         }
     }
 
@@ -171,11 +192,13 @@ public class AIMovement : MonoBehaviour
             this.transform.position = Vector3.MoveTowards(this.transform.position, DefendingPosition.transform.position, MoveSpeed * Time.deltaTime);
         }
 
+        //Everyone will shoot when in certain range
+
         if (HasBall)
         {
             this.transform.position = Vector3.MoveTowards(this.transform.position, goalPost.transform.position, (MoveSpeed + 1f) * Time.deltaTime);
 
-            if(Vector3.Distance(goalPost.transform.position,this.transform.position) < 28f)
+            if(Vector3.Distance(goalPost.transform.position,this.transform.position) < 10f)
             {
                 Shoot();
             }
@@ -190,6 +213,26 @@ public class AIMovement : MonoBehaviour
 
     void DefenderBeahviour()
     {
+        //Defender behaviour
+        // will not move much
+
+        //if the player comes in radius, will tackle him and take ball from him
+
+        if (Team1Possession)
+        {
+            if (MoveTowardsBall)
+            {
+               
+                this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
+
+                if(Vector3.Distance(this.transform.position,ball.transform.position) < 3f)
+                {
+                    
+                    ball.transform.parent.gameObject.GetComponent<PlayerMovement>().GetTackled(new Vector3(0f, 5f, -40f));
+                    //ball.transform.SetParent(this.gameObject.transform);
+                }
+            }
+        }
 
     }
 

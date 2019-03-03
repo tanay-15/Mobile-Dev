@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         //if(other.gameObject.layer == 10)
         if (other.gameObject.tag == "Ball")
         {
-            Debug.Log("colliding");
+           
             ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
             ball.GetComponent<Rigidbody>().isKinematic = true;
             ball.transform.SetParent(transform);
@@ -76,5 +76,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
  
+    }
+
+    public void GetTackled(Vector3 _knockbackForce)
+    {
+        ball.transform.parent = null;
+        ball.GetComponent<Rigidbody>().isKinematic = false;
+        _knockbackForce.Normalize();
+        Player.AddForce(_knockbackForce * 100f);
     }
 }
