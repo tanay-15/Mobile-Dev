@@ -330,6 +330,11 @@ PrefabInstance:
       propertyPath: startpoint
       value: 
       objectReference: {fileID: 767737540}
+    - target: {fileID: 3006026367633133444, guid: 603be26d66186bc4999d215aaee7f8f4,
+        type: 3}
+      propertyPath: playerDetect.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 603be26d66186bc4999d215aaee7f8f4, type: 3}
 --- !u!1 &165560321 stripped
@@ -675,6 +680,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4025622502437963250, guid: 37576d74c4b35b542878d67e6b034f03,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4025622502437963254, guid: 37576d74c4b35b542878d67e6b034f03,
         type: 3}

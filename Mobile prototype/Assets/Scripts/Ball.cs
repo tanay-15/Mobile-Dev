@@ -10,6 +10,9 @@ public class Ball : MonoBehaviour
 
     public bool Team1HasBall = false;
     public bool Team2HasBall = false;
+    public LayerMask playerDetect;
+   
+    float[] playerBallDistance = new float[20];
     void Start()
     {
         
@@ -18,10 +21,25 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        checkforPlayers();
         BallPossession();
+        
     }
 
+    void checkforPlayers()
+    {
+        Collider[] checkPlayers = Physics.OverlapSphere(this.transform.position, 10f, playerDetect);
+
+        int i = 0;
+
+        while (i< checkPlayers.Length)
+        {
+            playerBallDistance[i] = Vector3.Distance(this.transform.position, checkPlayers[i].transform.position);
+            i++;
+            Debug.Log("player position: " + checkPlayers[i].transform.position);
+        }
+
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Team1GoalPost")
