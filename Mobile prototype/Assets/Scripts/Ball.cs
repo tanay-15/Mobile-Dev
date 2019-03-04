@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Ball : MonoBehaviour
 {
@@ -11,35 +12,43 @@ public class Ball : MonoBehaviour
     public bool Team1HasBall = false;
     public bool Team2HasBall = false;
     public LayerMask playerDetect;
-   
-    float[] playerBallDistance = new float[20];
+
+    float[] playerBallDistance;//= new float[5];
     void Start()
     {
-        
+        playerBallDistance = new float[10];
     }
 
     // Update is called once per frame
     void Update()
     {
         checkforPlayers();
-        BallPossession();
+        //BallPossession();
         
     }
 
     void checkforPlayers()
     {
         Collider[] checkPlayers = Physics.OverlapSphere(this.transform.position, 10f, playerDetect);
-
-        int i = 0;
-
-        while (i< checkPlayers.Length)
+        float value = float.PositiveInfinity;
+        int index = -1;
+        for (int i = 0; i < checkPlayers.Length; i++)
         {
-            playerBallDistance[i] = Vector3.Distance(this.transform.position, checkPlayers[i].transform.position);
-            i++;
-            Debug.Log("player position: " + checkPlayers[i].transform.position);
+            Collider hit = checkPlayers[i];
+            float distance = Vector3.Distance(this.transform.position, hit.transform.position);
+            playerBallDistance[i] = distance; 
+            if(playerBallDistance[i] < value)
+            {
+                index = i;
+                value = playerBallDistance[i];
+            }
+
         }
+        Debug.Log("Index value  " + index);
+
 
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Team1GoalPost")
