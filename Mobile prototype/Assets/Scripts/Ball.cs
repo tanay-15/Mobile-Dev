@@ -8,15 +8,19 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject startpoint;
+    PassButton passButton;
 
     public bool Team1HasBall = false;
     public bool Team2HasBall = false;
     public LayerMask playerDetect;
+    PlayerMovement playerMovement;
 
     float[] playerBallDistance;//= new float[5];
     void Start()
     {
         playerBallDistance = new float[10];
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        passButton = FindObjectOfType<PassButton>();
     }
 
     // Update is called once per frame
@@ -44,9 +48,12 @@ public class Ball : MonoBehaviour
             }
 
         }
+
+        if(!playerMovement.ballisChild && passButton.pressed)
+        {
+            /*highlight selected player by index(smallest distance from the ball) above */
+        }
         Debug.Log("Index value  " + index);
-
-
     }
 
     private void OnCollisionEnter(Collision collision)
