@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Player.velocity = new Vector3(joyStick.Horizontal * 10f, Player.velocity.y, joyStick.Vertical * 10f);
+        Debug.Log("Player.velocity.y " + Player.velocity.y);
         
         if(IhaveBall())
         {
@@ -76,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
            
             ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
             ball.GetComponent<Rigidbody>().isKinematic = true;
+            //ball.GetComponent<Rigidbody>().velocity = Player.velocity;
             ball.transform.SetParent(transform);
             ballisChild = true;
         }

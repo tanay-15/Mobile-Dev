@@ -45,7 +45,7 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 821
-  m_MinSize: {x: 950, y: 374}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 324}
   m_MaxSize: {x: 12004, y: 8024}
   vertical: 0
-  controlID: 74
+  controlID: 104
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 204, y: 324}
   m_MaxSize: {x: 4004, y: 8024}
   vertical: 1
-  controlID: 75
+  controlID: 105
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -360,9 +360,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ee330000
-      m_LastClickedID: 13294
-      m_ExpandedIDs: d4fbffff
+      m_SelectedIDs: c6fbffff
+      m_LastClickedID: -1082
+      m_ExpandedIDs: 84fbffffaefbffffc6fbffffd4fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -418,9 +418,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 12.332375, y: 7.472876, z: -27.62985}
+    m_Target: {x: -0.43274856, y: 11.33985, z: -11.328917}
     speed: 2
-    m_Value: {x: 12.332375, y: 7.472876, z: -27.62985}
+    m_Value: {x: -0.43274856, y: 11.33985, z: -11.328917}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -448,13 +448,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.20279847, y: 0.6517803, z: -0.18717504, w: -0.70641404}
+    m_Target: {x: -0.123243734, y: -0.027086413, z: 0.0033217843, w: -0.9920012}
     speed: 2
-    m_Value: {x: -0.20279847, y: 0.6517803, z: -0.18717504, w: -0.70641404}
+    m_Value: {x: -0.123243734, y: -0.027086413, z: 0.0033217843, w: -0.9920012}
   m_Size:
-    m_Target: 24.60188
+    m_Target: 77.11014
     speed: 2
-    m_Value: 24.60188
+    m_Value: 77.11014
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -628,20 +628,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Virtual Joystick Pack/Scripts/Joysticks
   m_ViewMode: 1
   m_StartGridSize: 67
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Virtual Joystick Pack/Scripts/Joysticks
   m_LastFoldersGridSize: 67
   m_LastProjectPath: D:\Unity\Mobile-Dev\Mobile prototype
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 1e310000
-    m_LastClickedID: 12574
-    m_ExpandedIDs: 00000000342b000006300000a63000004431000004350000
+    scrollPos: {x: 0, y: 147}
+    m_SelectedIDs: e82f0000
+    m_LastClickedID: 12264
+    m_ExpandedIDs: 00000000342b000006300000a6300000e2300000443100000435000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -694,8 +694,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: b6240000
-    m_LastClickedInstanceID: 9398
+    m_SelectedInstanceIDs: c6fbffff
+    m_LastClickedInstanceID: -1082
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000063700003c2c0000f82a0000942c0000802b00006c39000074560000d2570000ca120000e4130000920e0000ac480000b8480000aa490000cc53000014420000304000009e440000f2340000
     m_RenameOverlay:
@@ -723,7 +723,7 @@ MonoBehaviour:
     m_NewAssetIndexInList: -1
     m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 67
-  m_DirectoriesAreaWidth: 110
+  m_DirectoriesAreaWidth: 233
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
