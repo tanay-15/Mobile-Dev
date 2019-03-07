@@ -102,4 +102,17 @@ public class PlayerMovement : MonoBehaviour
         _knockbackForce.Normalize();
         Player.AddForce(_knockbackForce * 100f);
     }
+
+
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ball")
+        {
+            ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            ball.GetComponent<Rigidbody>().isKinematic = false;
+            ball.transform.SetParent(null);
+            ballisChild = false;
+        }
+    }
 }

@@ -25,14 +25,16 @@ public class AIMovement : MonoBehaviour
 
 
     public float MoveSpeed;
-    private bool HasBall = false;
+    public bool HasBall = false;
     [SerializeField]
     private bool MoveTowardsBall = false;
 
     public bool Team2Possession;
     public bool Team1Possession;
 
-    public Collider[] nearbyColliders;
+
+    public GameObject teamMate;
+ 
 
     
 
@@ -101,7 +103,7 @@ public class AIMovement : MonoBehaviour
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
 
-            ball.GetComponent<Rigidbody>().velocity = direction.normalized * 20f;
+            ball.GetComponent<Rigidbody>().velocity = direction.normalized * 10f;
             HasBall = false;
         }
     }
@@ -125,7 +127,7 @@ public class AIMovement : MonoBehaviour
         {
         
             ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            ball.GetComponent<Rigidbody>().isKinematic = true;
+            
             ball.transform.SetParent(transform);
             HasBall = true;
             MoveTowardsBall = false;
@@ -188,9 +190,23 @@ public class AIMovement : MonoBehaviour
         if(!Team1Possession && !Team2Possession)
         {
             //Right now hold ground
+            if (MoveTowardsBall)
+            {
 
+                this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
+
+            }
+
+            else
+            {
+
+         
             this.transform.position = Vector3.MoveTowards(this.transform.position, DefendingPosition.transform.position, MoveSpeed * Time.deltaTime);
+
+            }
         }
+
+       
 
         //Everyone will shoot when in certain range
 
@@ -198,7 +214,7 @@ public class AIMovement : MonoBehaviour
         {
             this.transform.position = Vector3.MoveTowards(this.transform.position, goalPost.transform.position, (MoveSpeed + 1f) * Time.deltaTime);
 
-            if(Vector3.Distance(goalPost.transform.position,this.transform.position) < 10f)
+            if(Vector3.Distance(goalPost.transform.position,this.transform.position) < 24f)
             {
                 Shoot();
             }
@@ -228,9 +244,41 @@ public class AIMovement : MonoBehaviour
                 if(Vector3.Distance(this.transform.position,ball.transform.position) < 3f)
                 {
                     
-                    ball.transform.parent.gameObject.GetComponent<PlayerMovement>().GetTackled(new Vector3(0f, 5f, -40f));
+                    ball.transform.parent.gameObject.GetComponent<PlayerMovement>().GetTackled(new Vector3(0f, 5f, -4f));
                     //ball.transform.SetParent(this.gameObject.transform);
                 }
+            }
+        }
+
+        if (!Team1Possession && !Team2Possession)
+        {
+            //No one has the ball
+
+            if (MoveTowardsBall)
+            {
+                this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
+            }
+
+            else
+            {
+                this.transform.position = Vector3.MoveTowards(this.transform.position, DefendingPosition.transform.position, MoveSpeed * Time.deltaTime);
+            }
+        }
+
+        if (Team2Possession)
+        {
+            //Team has ball
+
+            if (HasBall)
+            {
+                //if this character has ball
+                Pass(teamMate.transform.position);
+                
+            }
+
+            else
+            {
+                this.transform.position = Vector3.MoveTowards(this.transform.position, AttackingPosition.transform.position, MoveSpeed * Time.deltaTime);
             }
         }
 

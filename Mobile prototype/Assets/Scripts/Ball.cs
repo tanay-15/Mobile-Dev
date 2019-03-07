@@ -29,12 +29,13 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         checkforPlayers();
         if (playerMovement.ballisChild)
         {
             applyDribbling();
         }
-        //BallPossession();
+        BallPossession();
 
     }
 
@@ -84,6 +85,7 @@ public class Ball : MonoBehaviour
         //    }
         //}
 
+       
 
         if(collision.gameObject.tag == "Team1GoalPost")
         {
@@ -94,29 +96,85 @@ public class Ball : MonoBehaviour
         {
             this.transform.position = startpoint.transform.position;
         }
+
+        if(collision.gameObject.tag == "Team1")
+        {
+            Team1HasBall = true;
+            Team2HasBall = false;
+            BallObject.velocity = Vector3.zero;
+            this.transform.SetParent(collision.gameObject.transform);
+            
+        }
+
+        if (collision.gameObject.tag == "Team2")
+        {
+            Team2HasBall = true;
+            Team1HasBall = false;
+            BallObject.velocity = Vector3.zero;
+            this.transform.SetParent(collision.gameObject.transform);
+         
+        }
+    }
+
+    public void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Team1")
+        {
+            Team1HasBall = true;
+            Team2HasBall = false;
+            BallObject.velocity = Vector3.zero;
+            this.transform.SetParent(collision.gameObject.transform);
+           
+        }
+
+        if (collision.gameObject.tag == "Team2")
+        {
+            Team2HasBall = true;
+            Team1HasBall = false;
+            BallObject.velocity = Vector3.zero;
+            this.transform.SetParent(collision.gameObject.transform);
+            
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Team1")
+        {
+            this.transform.SetParent(null);
+            Team1HasBall = false;
+            Team2HasBall = false;
+        }
+
+        if (collision.gameObject.tag == "Team2")
+        {
+            this.transform.SetParent(null);
+            Team1HasBall = false;
+            Team2HasBall = false;
+        }
     }
 
 
     public void BallPossession()
     {
-        if(this.gameObject.transform.parent == null)
-        {
-            Debug.Log("Nobody has possession of ball");
-            Team1HasBall = false;
-            Team2HasBall = false;
-        }
+        //if(this.gameObject.transform.parent == null)
+        //{
+        //    Debug.Log("Nobody has possession of ball");
+        //    Team1HasBall = false;
+        //    Team2HasBall = false;
+        //}
 
-         if(this.gameObject.transform.parent.tag == "Team1")
-        {
-            Team1HasBall = true;
-            Team2HasBall = false;
-        }
+        // else if(this.gameObject.transform.parent.tag == "Team1")
+        //{
+        //    Team1HasBall = true;
+        //    Team2HasBall = false;
+        //}
 
-        if(this.gameObject.transform.parent.tag == "Team2")
-        {
-            Team1HasBall = false;
-            Team2HasBall = true;
-        }
+        //else if(this.gameObject.transform.parent.tag == "Team2")
+        //{
+        //    Team1HasBall = false;
+        //    Team2HasBall = true;
+        //}
     }
 
     public bool GetTeam1possession()
