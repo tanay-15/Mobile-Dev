@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     bool passing = false;
     bool shooting = false;
     Ball ball;
+    float magnitude;
+    Vector3 Direction;
     public bool ballisChild = false;
     private Vector3 warp1pos;
     private Vector3 warp2pos;
@@ -27,7 +29,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Player.velocity = new Vector3(joyStick.Horizontal * 10f, Player.velocity.y, joyStick.Vertical * 10f);
+
+        Vector3 moveVector = (Vector3.right * joyStick.Horizontal + Vector3.forward * joyStick.Vertical);
+        if (moveVector != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(moveVector);
+            transform.Translate(moveVector * 8f * Time.deltaTime, Space.World);
+        }
+        //Player.velocity = new Vector3(joyStick.Horizontal * 10f, 0, joyStick.Vertical * 10f);
+        //Player.transform.Rotate(0, joyStick.Horizontal * 0.1f,0);
         Debug.Log("Player.velocity.y " + Player.velocity.y);
         
         if(IhaveBall())
@@ -76,8 +86,9 @@ public class PlayerMovement : MonoBehaviour
         {
            
             ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            ball.GetComponent<Rigidbody>().isKinematic = true;
+            //ball.GetComponent<Rigidbody>().isKinematic = true;
             //ball.GetComponent<Rigidbody>().velocity = Player.velocity;
+            //ball.GetComponent<Rigidbody>().AddForce(joyStick.Horizontal, Player.velocity.y, joyStick.Vertical, ForceMode.Force); 
             ball.transform.SetParent(transform);
             ballisChild = true;
         }
