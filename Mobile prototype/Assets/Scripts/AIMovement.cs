@@ -34,6 +34,9 @@ public class AIMovement : MonoBehaviour
 
 
     public GameObject teamMate;
+
+    public float h = 20;
+    public float gravity = -18;
  
 
     
@@ -60,6 +63,11 @@ public class AIMovement : MonoBehaviour
         if(role == PlayerRole.Defender)
         {
             DefenderBeahviour();
+        }
+
+        if(role == PlayerRole.Goalkeeper)
+        {
+            GoalieBehaviour();
         }
     }
 
@@ -286,7 +294,35 @@ public class AIMovement : MonoBehaviour
 
     void GoalieBehaviour()
     {
+        //Just kick the ball
 
+        if (Input.GetKeyDown(KeyCode.Space)){
+            GoalieKick();
+        }
+
+    }
+
+    Vector3 CalculateLaunchVelocity()
+    {
+        float displacementY = AttackingPosition.transform.position.y - ball.transform.position.y;
+
+        Vector3 displacementXZ = new Vector3(AttackingPosition.transform.position.x - ball.transform.position.x, 0, AttackingPosition.transform.position.z - ball.transform.position.z);
+
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * h* gravity);
+        Vector3 velocityXZ = displacementXZ/(Mathf.Sqrt(-2*h/gravity) + 1.7785f/* Mathf.Sqrt(2*(displacementY-h))/gravity*/);
+
+        Debug.Log(Mathf.Sqrt(-2 * h / gravity));
+        Debug.Log(Mathf.Sqrt(2 * (displacementY - h)) / gravity);
+        Debug.Log(displacementY);
+        Debug.Log(velocityXZ);
+      
+        return velocityXZ + velocityY; 
+    }
+
+    void GoalieKick()
+    {
+        Physics.gravity = Vector3.up * gravity;
+        ball.GetComponent<Rigidbody>().velocity = CalculateLaunchVelocity();
     }
 
     void AIPassing()
