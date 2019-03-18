@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     bool shooting = false;
     Ball ball;
     float magnitude;
-    Vector3 Direction;
+    public Vector3 Direction;
     public bool ballisChild = false;
     private Vector3 warp1pos;
     private Vector3 warp2pos;
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         //Player.transform.Rotate(0, joyStick.Horizontal * 0.1f,0);
         Debug.Log("Player.velocity.y " + Player.velocity.y);
         
-        if(IhaveBall())
+        if(ballisChild)
         {
             
             Debug.Log("drawing ray");

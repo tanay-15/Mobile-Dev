@@ -29,7 +29,7 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        //this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         checkforPlayers();
         if (playerMovement.ballisChild)
         {
@@ -41,6 +41,8 @@ public class Ball : MonoBehaviour
 
     void applyDribbling()
     {
+        BallObject.AddForce(playerMovement.Direction * 20f, ForceMode.Acceleration);
+        //this.transform.SetParent(null);
         //BallObject.velocity = new Vector3(Mathf.Lerp(0, 2, t), playerMovement.GetComponent<Rigidbody>().velocity.y, Mathf.Lerp(0, 2, t));
     }
     void checkforPlayers()
@@ -70,23 +72,7 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        //if(collision.gameObject.layer == 11)
-        //{
-        //    if(playerMovement.ballisChild)
-        //    {
-        //        Debug.Log("Here");
-        //        BallObject.velocity = new Vector3(Mathf.Lerp(0, 2, t), playerMovement.GetComponent<Rigidbody>().velocity.y, Mathf.Lerp(0, 2, t));
-        //        //BallObject.transform.position = 
-        //        //this.transform.position = new
-        //        //   Vector3(Mathf.Lerp(playerMovement.GetComponent<Rigidbody>().transform.position.x, playerMovement.GetComponent<Rigidbody>().transform.position.x + 5, t),
-        //        //   playerMovement.GetComponent<Rigidbody>().transform.position.y,
-        //        //   Mathf.Lerp(playerMovement.GetComponent<Rigidbody>().transform.position.z, playerMovement.GetComponent<Rigidbody>().transform.position.z + 5, t));
-        //    }
-        //}
-
-       
-
+      
         if(collision.gameObject.tag == "Team1GoalPost")
         {
             this.transform.position = startpoint.transform.position;
