@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         Vector3 moveVector = (Vector3.right * joyStick.Horizontal + Vector3.forward * joyStick.Vertical);
+        Direction = moveVector;
         if (moveVector != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(moveVector);
@@ -42,14 +43,15 @@ public class PlayerMovement : MonoBehaviour
         
         if(IhaveBall())
         {
-            Vector3 direction = new Vector3(joyStick.Horizontal, 0, joyStick.Vertical);
-            Debug.DrawRay(transform.position, direction * 10f, Color.red);
+            
+            Debug.Log("drawing ray");
+            Debug.DrawRay(transform.position, Direction.normalized * 10f, Color.red);
             if (!passing && passButton.pressed)
             {
                 passing = true;
                 ball.transform.parent = null;
                 ball.GetComponent<Rigidbody>().isKinematic = false;
-                ball.GetComponent<Rigidbody>().velocity = direction.normalized * 20f;
+                ball.GetComponent<Rigidbody>().velocity = Direction.normalized * 20f;
                 //ball.GetComponent<Rigidbody>().velocity;
             }
 
@@ -58,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
                 shooting = true;
                 ball.transform.parent = null;
                 ball.GetComponent<Rigidbody>().isKinematic = false;
-                ball.GetComponent<Rigidbody>().velocity = direction.normalized * 30f;
+                ball.GetComponent<Rigidbody>().velocity = Direction.normalized * 30f;
             }
         }
        
@@ -76,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IhaveBall()
     {
-        return transform.childCount > 0;
+        return transform.childCount > 2;
     }
 
     void OnCollisionEnter(Collision other)
