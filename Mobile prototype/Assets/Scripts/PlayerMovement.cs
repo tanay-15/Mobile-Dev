@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public bool ballisChild = false;
     private Vector3 warp1pos;
     private Vector3 warp2pos;
+    private Animator anim;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +25,20 @@ public class PlayerMovement : MonoBehaviour
         shootButton = FindObjectOfType<ShootButton>();
         Player = GetComponent<Rigidbody>();
         ball = FindObjectOfType<Ball>();
+        anim = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+      
+          
+        
         Vector3 moveVector = (Vector3.right * joyStick.Horizontal + Vector3.forward * joyStick.Vertical);
+
+        anim.SetFloat("SpeedX", joyStick.Horizontal);
+        anim.SetFloat("SpeedY", joyStick.Vertical);
+
         Direction = moveVector;
         if (moveVector != Vector3.zero)
         {
@@ -39,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         }
         //Player.velocity = new Vector3(joyStick.Horizontal * 10f, 0, joyStick.Vertical * 10f);
         //Player.transform.Rotate(0, joyStick.Horizontal * 0.1f,0);
-        Debug.Log("Player.velocity.y " + Player.velocity.y);
+       
         
         if(ballisChild)
         {
