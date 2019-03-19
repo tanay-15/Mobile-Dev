@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\AIMovement.cs" />
     <Compile Include="Assets\Scripts\Ball.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\CountDown.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GoalPost.cs" />
     <Compile Include="Assets\Scripts\Loader.cs" />
@@ -70,10 +71,10 @@
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\ShootButton.cs" />
     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
+    <Compile Include="Assets\Scripts\tackleScript.cs" />
     <Compile Include="Assets\Scripts\TeamAI.cs" />
     <Compile Include="Assets\Scripts\WarpHoles.cs" />
     <Compile Include="Assets\Scripts\WarpSolo.cs" />
-    <Compile Include="Assets\tackleScript.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Virtual Joystick Pack\Examples\2D Example\Player2DExample.cs" />
     <Compile Include="Assets\Virtual Joystick Pack\Examples\3D Example\Player3DExample.cs" />
