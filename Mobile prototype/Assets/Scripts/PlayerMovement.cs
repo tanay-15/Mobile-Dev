@@ -45,10 +45,8 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(moveVector);
             transform.Translate(moveVector * 8f * Time.deltaTime, Space.World);
         }
-        //Player.velocity = new Vector3(joyStick.Horizontal * 10f, 0, joyStick.Vertical * 10f);
-        //Player.transform.Rotate(0, joyStick.Horizontal * 0.1f,0);
-       
-        
+
+              
         if(ballisChild)
         {
             
@@ -82,11 +80,6 @@ public class PlayerMovement : MonoBehaviour
         {
             ball.transform.SetParent(transform);
         }
-    }
-
-    public bool IhaveBall()
-    {
-        return transform.childCount > 2;
     }
 
     void OnCollisionEnter(Collision other)

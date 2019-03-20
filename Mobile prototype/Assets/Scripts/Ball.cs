@@ -8,6 +8,7 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject startpoint;
+    public GameObject selectedPlayer = null;
     PassButton passButton;
     Rigidbody BallObject;
     public bool Team1HasBall = false;
@@ -20,7 +21,7 @@ public class Ball : MonoBehaviour
     float[] playerBallDistance;//= new float[5];
     void Start()
     {
-        playerBallDistance = new float[10];
+        playerBallDistance = new float[6];
         playerMovement = FindObjectOfType<PlayerMovement>();
         passButton = FindObjectOfType<PassButton>();
         BallObject = GetComponent<Rigidbody>();
@@ -29,11 +30,13 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-        checkforPlayers();
         if (playerMovement.ballisChild)
         {
             applyDribbling();
+        }
+        else if(!playerMovement.ballisChild)
+        {
+            checkforPlayers();
         }
         BallPossession();
 
@@ -41,33 +44,30 @@ public class Ball : MonoBehaviour
 
     void applyDribbling()
     {
-        BallObject.AddForce(playerMovement.Direction * 20f, ForceMode.Acceleration);
+       // BallObject.AddForce(playerMovement.Direction * 20f, ForceMode.Acceleration);
         //this.transform.SetParent(null);
         //BallObject.velocity = new Vector3(Mathf.Lerp(0, 2, t), playerMovement.GetComponent<Rigidbody>().velocity.y, Mathf.Lerp(0, 2, t));
     }
-    void checkforPlayers()
+    GameObject checkforPlayers()
     {
         Collider[] checkPlayers = Physics.OverlapSphere(this.transform.position, 10f, playerDetect);
         float value = float.PositiveInfinity;
         int index = -1;
         for (int i = 0; i < checkPlayers.Length; i++)
         {
-            Collider hit = checkPlayers[i];
-            float distance = Vector3.Distance(this.transform.position, hit.transform.position);
+            //Collider hit = checkPlayers[i];
+            float distance = Vector3.Distance(this.transform.position, checkPlayers[i].transform.position);
             playerBallDistance[i] = distance; 
             if(playerBallDistance[i] < value)
             {
                 index = i;
                 value = playerBallDistance[i];
+                selectedPlayer = checkPlayers[i].gameObject;
             }
 
         }
-
-        if(!playerMovement.ballisChild && passButton.pressed)
-        {
-            /*highlight selected player by index(smallest distance from the ball) above */
-        }
-        Debug.Log("Index value  " + index);
+        Debug.Log(" selectedPlayer  " + selectedPlayer.name);
+        return selectedPlayer;
     }
 
     private void OnCollisionEnter(Collision collision)
