@@ -82,21 +82,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision other)
-    {     
-        //if(other.gameObject.layer == 10)
-        if (other.gameObject.tag == "Ball")
-        {
-           
-            ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            //ball.GetComponent<Rigidbody>().isKinematic = true;
-            //ball.GetComponent<Rigidbody>().velocity = Player.velocity;
-            //ball.GetComponent<Rigidbody>().AddForce(joyStick.Horizontal, Player.velocity.y, joyStick.Vertical, ForceMode.Force); 
-            ball.transform.SetParent(transform);
-            ballisChild = true;
-        }
-
+    public void TriggerHandler(Collider other)
+    {      
+         ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+         //ball.GetComponent<Rigidbody>().isKinematic = true;
+         //ball.GetComponent<Rigidbody>().velocity = Player.velocity;
+         //ball.GetComponent<Rigidbody>().AddForce(joyStick.Horizontal, Player.velocity.y, joyStick.Vertical, ForceMode.Force); 
+         ball.transform.SetParent(other.transform);
+         ballisChild = true;      
     }
+    //void OnCollisionEnter(Collision other)
+    //{     
+    //    //if(other.gameObject.layer == 10)
+    //    if (other.gameObject.tag == "Ball")
+    //    {
+           
+    //        ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+    //        //ball.GetComponent<Rigidbody>().isKinematic = true;
+    //        //ball.GetComponent<Rigidbody>().velocity = Player.velocity;
+    //        //ball.GetComponent<Rigidbody>().AddForce(joyStick.Horizontal, Player.velocity.y, joyStick.Vertical, ForceMode.Force); 
+    //        ball.transform.SetParent(transform);
+    //        ballisChild = true;
+    //    }
+
+    //}
 
     public void GetTackled(Vector3 _knockbackForce)
     {

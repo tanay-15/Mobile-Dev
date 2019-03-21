@@ -25,6 +25,7 @@ public class Ball : MonoBehaviour
         playerMovement = FindObjectOfType<PlayerMovement>();
         passButton = FindObjectOfType<PassButton>();
         BallObject = GetComponent<Rigidbody>();
+        checkforPlayers();
     }
 
     // Update is called once per frame
@@ -34,7 +35,7 @@ public class Ball : MonoBehaviour
         {
             applyDribbling();
         }
-        else if(!playerMovement.ballisChild)
+        else if(!playerMovement.ballisChild && passButton.pressed)
         {
             checkforPlayers();
         }
@@ -44,7 +45,10 @@ public class Ball : MonoBehaviour
 
     void applyDribbling()
     {
-       // BallObject.AddForce(playerMovement.Direction * 20f, ForceMode.Acceleration);
+        //transform.position = new Vector3(transform.parent.position.x + 0.8f, 2.095f, transform.parent.position.z);
+        transform.position = new Vector3(playerMovement.Direction.x, 2.095f, playerMovement.Direction.z);
+        //transform.position = Vector3.Lerp(transform.parent.position, playerMovement.Direction, 0.5f);
+        // BallObject.AddForce(playerMovement.Direction * 20f, ForceMode.Acceleration);
         //this.transform.SetParent(null);
         //BallObject.velocity = new Vector3(Mathf.Lerp(0, 2, t), playerMovement.GetComponent<Rigidbody>().velocity.y, Mathf.Lerp(0, 2, t));
     }
@@ -83,44 +87,44 @@ public class Ball : MonoBehaviour
             this.transform.position = startpoint.transform.position;
         }
 
-        if(collision.gameObject.tag == "Team1")
-        {
-            Team1HasBall = true;
-            Team2HasBall = false;
-            BallObject.velocity = Vector3.zero;
-            this.transform.SetParent(collision.gameObject.transform);
+        //if(collision.gameObject.tag == "Team1")
+        //{
+        //    Team1HasBall = true;
+        //    Team2HasBall = false;
+        //    BallObject.velocity = Vector3.zero;
+        //    this.transform.SetParent(collision.gameObject.transform);
             
-        }
+        //}
 
-        if (collision.gameObject.tag == "Team2")
-        {
-            Team2HasBall = true;
-            Team1HasBall = false;
-            BallObject.velocity = Vector3.zero;
-            this.transform.SetParent(collision.gameObject.transform);
+        //if (collision.gameObject.tag == "Team2")
+        //{
+        //    Team2HasBall = true;
+        //    Team1HasBall = false;
+        //    BallObject.velocity = Vector3.zero;
+        //    this.transform.SetParent(collision.gameObject.transform);
          
-        }
+        //}
     }
 
     public void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "Team1")
-        {
-            Team1HasBall = true;
-            Team2HasBall = false;
-            BallObject.velocity = Vector3.zero;
-            this.transform.SetParent(collision.gameObject.transform);
+        //if (collision.gameObject.tag == "Team1")
+        //{
+        //    Team1HasBall = true;
+        //    Team2HasBall = false;
+        //    BallObject.velocity = Vector3.zero;
+        //    this.transform.SetParent(collision.gameObject.transform);
            
-        }
+        //}
 
-        if (collision.gameObject.tag == "Team2")
-        {
-            Team2HasBall = true;
-            Team1HasBall = false;
-            BallObject.velocity = Vector3.zero;
-            this.transform.SetParent(collision.gameObject.transform);
+        //if (collision.gameObject.tag == "Team2")
+        //{
+        //    Team2HasBall = true;
+        //    Team1HasBall = false;
+        //    BallObject.velocity = Vector3.zero;
+        //    this.transform.SetParent(collision.gameObject.transform);
             
-        }
+        //}
     }
 
     private void OnCollisionExit(Collision collision)
