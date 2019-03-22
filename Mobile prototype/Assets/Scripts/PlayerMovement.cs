@@ -89,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
          //ball.GetComponent<Rigidbody>().velocity = Player.velocity;
          //ball.GetComponent<Rigidbody>().AddForce(joyStick.Horizontal, Player.velocity.y, joyStick.Vertical, ForceMode.Force); 
          ball.transform.SetParent(other.transform);
+       
          ballisChild = true;      
     }
     //void OnCollisionEnter(Collision other)

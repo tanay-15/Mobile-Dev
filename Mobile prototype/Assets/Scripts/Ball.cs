@@ -46,7 +46,7 @@ public class Ball : MonoBehaviour
     void applyDribbling()
     {
         //transform.position = new Vector3(transform.parent.position.x + 0.8f, 2.095f, transform.parent.position.z);
-        transform.position = new Vector3(playerMovement.Direction.x, 2.095f, playerMovement.Direction.z);
+        //transform.position = new Vector3(playerMovement.Direction.x, 2.095f, playerMovement.Direction.z);
         //transform.position = Vector3.Lerp(transform.parent.position, playerMovement.Direction, 0.5f);
         // BallObject.AddForce(playerMovement.Direction * 20f, ForceMode.Acceleration);
         //this.transform.SetParent(null);
@@ -54,7 +54,7 @@ public class Ball : MonoBehaviour
     }
     GameObject checkforPlayers()
     {
-        Collider[] checkPlayers = Physics.OverlapSphere(this.transform.position, 10f, playerDetect);
+        Collider[] checkPlayers = Physics.OverlapSphere(this.transform.position, 40f, playerDetect);
         float value = float.PositiveInfinity;
         int index = -1;
         for (int i = 0; i < checkPlayers.Length; i++)
