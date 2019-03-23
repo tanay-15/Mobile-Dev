@@ -89,6 +89,7 @@
     <Compile Include="Assets\Virtual Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\Virtual Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Virtual Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
+    <None Include="Assets\Materials\Rotate.shader" />
     <None Include="Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>D:/Unity/Mobile-Dev/Mobile prototype/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
