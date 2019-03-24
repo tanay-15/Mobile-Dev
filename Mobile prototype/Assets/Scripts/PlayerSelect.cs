@@ -6,6 +6,7 @@ public class PlayerSelect : MonoBehaviour
 {
     Ball ball;
     public List<GameObject> playersinTeam;
+    Transform Indicator = null;
 
 
 // Start is called before the first frame update
@@ -32,11 +33,25 @@ void Start()
             if (playersinTeam[i].name == ball.selectedPlayer.name)
             {
                 playersinTeam[i].gameObject.GetComponent<PlayerMovement>().enabled = true;
+                Indicator = playersinTeam[i].gameObject.transform.Find("Indicator");
+                Indicator.gameObject.SetActive(true);
+                //if (playersinTeam[i].gameObject.GetComponentInChildren<GameObject>().name == "Indicator")
+                //{
+                //    Indicator = playersinTeam[i].gameObject.GetComponentInChildren<GameObject>();
+                //    Indicator.SetActive(true);
+                //}
             }
 
             else if (playersinTeam[i].name != ball.selectedPlayer.name)
             {
                 playersinTeam[i].gameObject.GetComponent<PlayerMovement>().enabled = false;
+                Indicator = playersinTeam[i].gameObject.transform.Find("Indicator");
+                Indicator.gameObject.SetActive(false);
+                //if (playersinTeam[i].gameObject.GetComponentInChildren<GameObject>().name == "Indicator")
+                //{
+                //    Indicator = playersinTeam[i].gameObject.GetComponentInChildren<GameObject>();
+                //    Indicator.SetActive(false);
+                //}
             }
         }
     }
