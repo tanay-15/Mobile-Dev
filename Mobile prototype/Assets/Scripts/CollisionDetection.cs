@@ -22,7 +22,7 @@ public class CollisionDetection : MonoBehaviour
     {
         if(other.tag == "Ball")
         {
-            playerMovement.TriggerHandler(other);
+            playerMovement.TriggerHandler(gameObject);
         }
         
     }
@@ -31,7 +31,7 @@ public class CollisionDetection : MonoBehaviour
     {
         if (other.tag == "Ball")
         {
-            playerMovement.TriggerHandler(other);
+            playerMovement.TriggerHandler(gameObject);
         }
     }
 }

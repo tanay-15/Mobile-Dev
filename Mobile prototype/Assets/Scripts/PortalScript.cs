@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PortalScript : MonoBehaviour
 {
+    PlayerMovement playerMovement;
     public List<GameObject> totalPortals;
     List<int> numberPot;
     Color[] colors = new Color[3];
@@ -24,8 +25,8 @@ public class PortalScript : MonoBehaviour
           
         }
         numberPot = new List<int>();
-        
 
+        playerMovement = FindObjectOfType<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -67,7 +68,7 @@ public class PortalScript : MonoBehaviour
         {
             if(portalCollider.GetComponent<Renderer>().material.color == totalPortals[i].gameObject.GetComponent<Renderer>().material.color)
             {
-                objColliding.transform.position = totalPortals[i].gameObject.transform.position;
+                objColliding.transform.position = totalPortals[i].gameObject.transform.position + playerMovement.Direction.normalized * 2; 
             }
         }
     }

@@ -82,15 +82,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void TriggerHandler(Collider other)
+    public void TriggerHandler(GameObject DribbleBox)
     {      
          ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
          //ball.GetComponent<Rigidbody>().isKinematic = true;
          //ball.GetComponent<Rigidbody>().velocity = Player.velocity;
          //ball.GetComponent<Rigidbody>().AddForce(joyStick.Horizontal, Player.velocity.y, joyStick.Vertical, ForceMode.Force); 
-         ball.transform.SetParent(other.transform);
-       
-         ballisChild = true;      
+         ball.transform.SetParent(this.transform);
+        
+        //ball.transform.position = other.transform.position;
+
+        ballisChild = true;      
     }
     //void OnCollisionEnter(Collision other)
     //{     

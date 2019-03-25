@@ -24,11 +24,11 @@ public class Portal : MonoBehaviour
         }
     }
 
-    public void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject != null)
-        {
-            portalScript.handleTeleportation(this.gameObject, other.gameObject);
-        }
-    }
+    //public void OnTriggerStay(Collider other)
+    //{
+    //    if (other.gameObject != null)
+    //    {
+    //        portalScript.handleTeleportation(this.gameObject, other.gameObject);
+    //    }
+    //}
 }
