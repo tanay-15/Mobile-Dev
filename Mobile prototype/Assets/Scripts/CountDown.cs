@@ -26,7 +26,7 @@ public class CountDown : MonoBehaviour
         minutes = (int)(timer / 60) % 60;
         if (timer >= 0.0 && canCount)
         {
-            timer -= Time.deltaTime * 15;
+            timer -= Time.deltaTime * 5;
             timerString = string.Format("{0:00}:{1:00}", minutes, seconds);
             uiText.text = timerString;
             //uiText.text = timer.ToString("F");
