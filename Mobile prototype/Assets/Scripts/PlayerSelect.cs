@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerSelect : MonoBehaviour
 {
+    
     Ball ball;
     public List<GameObject> playersinTeam;
     Transform Indicator = null;
@@ -12,6 +13,7 @@ public class PlayerSelect : MonoBehaviour
 // Start is called before the first frame update
 void Start()
     {
+        
         ball = FindObjectOfType<Ball>();
         playersinTeam = new List<GameObject>(transform.childCount);
         Debug.Log("children : " + transform.childCount);

@@ -66,7 +66,8 @@ public class PortalScript : MonoBehaviour
     {
         for(int i = 0; i < totalPortals.Count; i++)
         {
-            if(portalCollider.GetComponent<Renderer>().material.color == totalPortals[i].gameObject.GetComponent<Renderer>().material.color)
+            if((portalCollider.GetComponent<Renderer>().material.color == totalPortals[i].gameObject.GetComponent<Renderer>().material.color) &&
+                (portalCollider.name != totalPortals[i].gameObject.name))
             {
                 objColliding.transform.position = totalPortals[i].gameObject.transform.position + new Vector3(4,0,0); 
             }

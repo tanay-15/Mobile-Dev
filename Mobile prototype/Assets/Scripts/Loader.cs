@@ -44,7 +44,7 @@ public class Loader : MonoBehaviour
             CameraSecondHalf.SetActive(true);
             CameraFirstHalf.SetActive(false);
 
-            TimeManager.GetComponent<CountDown>().SetTimer(300f);
+            TimeManager.GetComponent<CountDown>().SetTimer(480f);
         }
 
         //GameTimer = GameTimer + Time.deltaTime;

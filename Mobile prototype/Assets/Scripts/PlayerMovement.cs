@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    Loader loaderScript;
     Joystick joyStick;
     PassButton passButton;
     ShootButton shootButton;
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         Player = GetComponent<Rigidbody>();
         ball = FindObjectOfType<Ball>();
         anim = this.GetComponent<Animator>();
+        loaderScript = FindObjectOfType<Loader>();
     }
 
     // Update is called once per frame
@@ -40,14 +42,20 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("SpeedY", joyStick.Vertical);
 
         Direction = moveVector;
-        if (moveVector != Vector3.zero)
+        if (moveVector != Vector3.zero && loaderScript.CameraFirstHalf.activeSelf)
         {
             transform.rotation = Quaternion.LookRotation(moveVector);
             transform.Translate(moveVector * 8f * Time.deltaTime, Space.World);
         }
+        else if (moveVector != Vector3.zero && loaderScript.CameraSecondHalf.activeSelf)
+        {
+            transform.rotation = Quaternion.LookRotation(moveVector);
+            transform.Translate(-moveVector * 8f * Time.deltaTime, Space.World);
+        }
 
-              
-        if(ballisChild)
+
+
+        if (ballisChild)
         {
             
             Debug.Log("drawing ray");

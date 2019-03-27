@@ -41,27 +41,27 @@ public class CameraFollow : MonoBehaviour
         if(measuredDistance < minDistance)
         {
             
-            makeTransparent();
+           // makeTransparent();
 
         }
         else if(measuredDistance > minDistance)
         {
-            makeOpaque();
+            //makeOpaque();
         }
     }
 
-    void makeTransparent()
-    {
-        Color colorToAdjust  = Wall.GetComponent<Renderer>().material.color;
-        colorToAdjust.a = 0f;
-        Wall.GetComponent<Renderer>().material.color = colorToAdjust;
-        //Debug.Log("here");
-    }
+    //void makeTransparent()
+    //{
+    //    Color colorToAdjust  = Wall.GetComponent<Renderer>().material.color;
+    //    colorToAdjust.a = 0f;
+    //    Wall.GetComponent<Renderer>().material.color = colorToAdjust;
+    //    //Debug.Log("here");
+    //}
 
-    void makeOpaque()
-    {
-        Color normalColor = Wall.GetComponent<Renderer>().material.color;
-        normalColor.a = 1f;
-        Wall.GetComponent<Renderer>().material.color = normalColor;
-    }
+    //void makeOpaque()
+    //{
+    //    Color normalColor = Wall.GetComponent<Renderer>().material.color;
+    //    normalColor.a = 1f;
+    //    Wall.GetComponent<Renderer>().material.color = normalColor;
+    //}
 }
