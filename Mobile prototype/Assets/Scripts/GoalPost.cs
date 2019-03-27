@@ -16,6 +16,7 @@ public class GoalPost : MonoBehaviour
     [SerializeField]
     private GameObject gameBall;
 
+    public GameObject[] teamMembers;
   
 
     void Start()
@@ -46,13 +47,25 @@ public class GoalPost : MonoBehaviour
             if(this.gameObject.tag == "Team1GoalPost")
             {
                 score = GameManager.instance.Team1Score++;
-
+                Elimination();
             }
 
             else if(this.gameObject.tag == "Team2GoalPost")
             {
                 score2 = GameManager.instance.Team2Score++;
+                Elimination();
             }
+        }
+    }
+
+
+    public void Elimination()
+    {
+        if(teamMembers.Length > 0)
+        {
+            int selectedElement = Random.Range(0, teamMembers.Length);
+           
+            Destroy(teamMembers[selectedElement]);
         }
     }
 
