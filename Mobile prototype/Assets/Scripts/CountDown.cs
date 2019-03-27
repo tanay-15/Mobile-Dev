@@ -42,4 +42,14 @@ public class CountDown : MonoBehaviour
 
              
     }
+
+    public void SetTimer(float _timer)
+    {
+        timer = _timer;
+    }
+
+    public float GetTimer()
+    {
+        return timer;
+    }
 }
