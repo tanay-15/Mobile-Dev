@@ -18,7 +18,7 @@ public class Portal : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {     
-        if (other.gameObject != null)
+        if (other.gameObject.tag == "Team1" || other.gameObject.tag =="Team2" || other.gameObject.tag =="Ball")
         {
             portalScript.handleTeleportation(this.gameObject , other.gameObject);
         }
@@ -26,7 +26,7 @@ public class Portal : MonoBehaviour
 
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject != null)
+        if (other.gameObject.tag == "Team1" || other.gameObject.tag == "Team2" || other.gameObject.tag == "Ball")
         {
             portalScript.handleTeleportation(this.gameObject, other.gameObject);
         }

@@ -6,7 +6,7 @@ public class AIMovement : MonoBehaviour
 {
     // Start is called before the first frame update
 
-  Ball ball;
+    Ball ball;
     public GameObject goalPost;
 
     private Animator anim;
@@ -69,6 +69,7 @@ public class AIMovement : MonoBehaviour
 
         if(role == PlayerRole.Goalkeeper)
         {
+            
             GoalieBehaviour();
         }
     }
