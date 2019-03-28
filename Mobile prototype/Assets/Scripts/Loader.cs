@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Loader : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Loader : MonoBehaviour
     public GameObject CameraSecondHalf;
     public GameObject TimeManager;
 
+    public bool SecondHalf = false;
     /*
      * Note****
      * Half Time at 15 secs for testing purpose and 60 for playtesting, In- game value will be updated later on.
@@ -39,17 +41,21 @@ public class Loader : MonoBehaviour
 
         GameTimer = TimeManager.GetComponent<CountDown>().GetTimer();
 
-        if (GameTimer <=0.0f)
+        if (GameTimer <=0.0f && !SecondHalf)
         {
             CameraSecondHalf.SetActive(true);
             CameraFirstHalf.SetActive(false);
-
+            
             TimeManager.GetComponent<CountDown>().SetTimer(480f);
+            SecondHalf = true;
         }
 
         //GameTimer = GameTimer + Time.deltaTime;
 
-
+        if(GameTimer <= 0.0f && SecondHalf)
+        {
+            Application.LoadLevel("PratikScene");
+        }
 
     }
 }

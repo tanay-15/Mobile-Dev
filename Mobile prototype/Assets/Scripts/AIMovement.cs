@@ -53,11 +53,9 @@ public class AIMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Movement();
-        //Shoot();
+     
         GetBallPossession();
-
-        //anim.SetBool("Run", true);
+       
 
         if (role == PlayerRole.Forward)
         {
@@ -91,12 +89,12 @@ public class AIMovement : MonoBehaviour
 
               var direction = heading / distance;
 
-                Debug.DrawRay(this.transform.position, direction * 20f, Color.blue);
+            ball.GetComponent<Rigidbody>().isKinematic = false;
+            ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            ball.transform.SetParent(null);
+            //ball.GetComponent<Rigidbody>().isKinematic = false;
 
-                ball.transform.parent = null;
-                //ball.GetComponent<Rigidbody>().isKinematic = false;
-
-                ball.GetComponent<Rigidbody>().velocity = direction.normalized * 30f;
+            ball.GetComponent<Rigidbody>().velocity = direction.normalized * 50f;
                 HasBall = false;
             
 
@@ -112,26 +110,19 @@ public class AIMovement : MonoBehaviour
 
             var distance = heading.magnitude;
             var direction = heading / distance;
-            ball.transform.parent = null;
+           
+          
+            ball.GetComponent<Rigidbody>().isKinematic = false;
+            ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            ball.transform.SetParent(null);
             //ball.GetComponent<Rigidbody>().isKinematic = false;
 
-            ball.GetComponent<Rigidbody>().velocity = direction.normalized * 10f;
+            ball.GetComponent<Rigidbody>().velocity = direction.normalized * 30f;
             HasBall = false;
         }
     }
 
-    void Movement()
-    {
-        if (MoveTowardsBall && !Team2Possession)
-        {
-            if (!HasBall)
-            {
-                this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
-            }
-        }
-        
-       
-    }
+    
 
     private void OnCollisionEnter(Collision other)
     {
@@ -139,19 +130,30 @@ public class AIMovement : MonoBehaviour
         {
         
             ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            
+            ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             ball.transform.SetParent(transform);
             HasBall = true;
             MoveTowardsBall = false;
         }
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if(collision.gameObject.tag == "Ball")
+        {
+            HasBall = true;
+        }
+    }
+
+
+
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "Ball")
         {
-            ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+          
             ball.GetComponent<Rigidbody>().isKinematic = false;
+           ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             ball.transform.SetParent(null);
             HasBall = false;
         }
@@ -276,6 +278,8 @@ public class AIMovement : MonoBehaviour
 
         //if the player comes in radius, will tackle him and take ball from him
 
+        
+
         if (Team1Possession)
         {
             if (MoveTowardsBall)
@@ -301,6 +305,7 @@ public class AIMovement : MonoBehaviour
             {
                 this.transform.LookAt(ball.transform.position);
                 anim.SetBool("Run", true);
+                Debug.Log("Found ball");
                 this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
             }
 
@@ -309,7 +314,7 @@ public class AIMovement : MonoBehaviour
                 this.transform.LookAt(DefendingPosition.transform.position);
                 anim.SetBool("Run", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, DefendingPosition.transform.position, MoveSpeed * Time.deltaTime);
-
+                Debug.Log("Taking defensive position");
                 if(Vector3.Distance(this.transform.position,DefendingPosition.transform.position) < 2f)
                 {
                     anim.SetBool("Run", false);
@@ -324,6 +329,7 @@ public class AIMovement : MonoBehaviour
             if (HasBall)
             {
                 //if this character has ball
+                Debug.Log("Passing ball");
                 Pass(teamMate.transform.position);
                 
             }
@@ -346,7 +352,7 @@ public class AIMovement : MonoBehaviour
     {
         //Just kick the ball
 
-        if (Input.GetKeyDown(KeyCode.Space)){
+        if (HasBall){
             GoalieKick();
         }
 
@@ -361,19 +367,35 @@ public class AIMovement : MonoBehaviour
         Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * h* gravity);
         Vector3 velocityXZ = displacementXZ/(Mathf.Sqrt(-2*h/gravity) + 1.7785f/* Mathf.Sqrt(2*(displacementY-h))/gravity*/);
 
-        Debug.Log(Mathf.Sqrt(-2 * h / gravity));
-        Debug.Log(Mathf.Sqrt(2 * (displacementY - h)) / gravity);
-        Debug.Log(displacementY);
-        Debug.Log(velocityXZ);
+        //Debug.Log(Mathf.Sqrt(-2 * h / gravity));
+        //Debug.Log(Mathf.Sqrt(2 * (displacementY - h)) / gravity);
+        //Debug.Log(displacementY);
+        //Debug.Log(velocityXZ);
       
         return velocityXZ + velocityY; 
     }
 
     void GoalieKick()
     {
-        Physics.gravity = Vector3.up * gravity;
-        ball.GetComponent<Rigidbody>().velocity = CalculateLaunchVelocity();
+        if (HasBall)
+        {
+           
+
+
+            ball.GetComponent<Rigidbody>().isKinematic = false;
+            ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            ball.transform.SetParent(null);
+
+            Physics.gravity = Vector3.up * gravity;
+            ball.GetComponent<Rigidbody>().velocity = CalculateLaunchVelocity();
+
+
+            HasBall = false;
+        }
+   
     }
+
+  
 
     void AIPassing()
     {
