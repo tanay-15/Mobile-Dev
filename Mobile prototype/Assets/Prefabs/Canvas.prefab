@@ -276,7 +276,7 @@ RectTransform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 6859722480428837548}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 6859722480428837549}
   - component: {fileID: 6859722480428837546}
   - component: {fileID: 6859722480428837547}
+  - component: {fileID: 286288285397283664}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -353,8 +354,8 @@ RectTransform:
   - {fileID: 6859722479061465247}
   - {fileID: 6859722479816173816}
   - {fileID: 6859722480088528641}
-  - {fileID: 6642439863389764973}
   - {fileID: 6859722480391843071}
+  - {fileID: 6642439863389764973}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -423,6 +424,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &286288285397283664
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6859722480428837544}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &6859722480701621731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -430,10 +443,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6859722480428837548}
     m_Modifications:
-    - target: {fileID: 1605939441684070, guid: ce5089f3caa5bb042a4d4c23a427bc82, type: 3}
-      propertyPath: m_Name
-      value: Fixed Joystick
-      objectReference: {fileID: 0}
     - target: {fileID: 224070147403872398, guid: ce5089f3caa5bb042a4d4c23a427bc82,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -472,7 +481,7 @@ PrefabInstance:
     - target: {fileID: 224070147403872398, guid: ce5089f3caa5bb042a4d4c23a427bc82,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224070147403872398, guid: ce5089f3caa5bb042a4d4c23a427bc82,
         type: 3}
@@ -548,6 +557,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605939441684070, guid: ce5089f3caa5bb042a4d4c23a427bc82, type: 3}
+      propertyPath: m_Name
+      value: Fixed Joystick
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce5089f3caa5bb042a4d4c23a427bc82, type: 3}

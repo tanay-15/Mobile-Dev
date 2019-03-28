@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour
     PassButton passButton;
     ShootButton shootButton;
     Rigidbody Player;
-    bool passing = false;
-    bool shooting = false;
+    public bool passing = false;
+    public bool shooting = false;
     Ball ball;
     float magnitude;
     public Vector3 Direction;
@@ -57,24 +57,33 @@ public class PlayerMovement : MonoBehaviour
 
         if (ballisChild)
         {
-            
+            var dir = ball.GetComponent<Rigidbody>().transform.position - this.transform.position;
+            var dis = dir.magnitude;
+            var fdir = dir / dis;
             Debug.Log("drawing ray");
-            Debug.DrawRay(transform.position, Direction.normalized * 10f, Color.red);
+            Debug.Log("Direction : " + fdir);
+            Debug.DrawRay(transform.position, fdir * 10f, Color.red);
             if (!passing && passButton.pressed)
             {
                 passing = true;
-                ball.transform.parent = null;
-                ball.GetComponent<Rigidbody>().isKinematic = false;
-                ball.GetComponent<Rigidbody>().velocity = Direction.normalized * 20f;
+                ball.transform.SetParent(null);
+                //ball.transform.parent = null;
+                
+                //ball.GetComponent<Rigidbody>().isKinematic = false;
+                ball.GetComponent<Rigidbody>().AddForce((new Vector3(fdir.x,0,fdir.z).normalized) * 20f, ForceMode.Impulse);
+                //ball.GetComponent<Rigidbody>().velocity = Direction.normalized * 20f;
                 //ball.GetComponent<Rigidbody>().velocity;
             }
 
             if(!shooting && shootButton.bPressed)
             {
                 shooting = true;
-                ball.transform.parent = null;
-                ball.GetComponent<Rigidbody>().isKinematic = false;
-                ball.GetComponent<Rigidbody>().velocity = Direction.normalized * 30f;
+                //ball.transform.parent = null;
+                ball.transform.SetParent(null);
+                Debug.Log("after drawing ray1");
+                //ball.GetComponent<Rigidbody>().isKinematic = false;
+                ball.GetComponent<Rigidbody>().AddForce((new Vector3(fdir.x, fdir.y, fdir.z).normalized) * 40f, ForceMode.Impulse);
+                //ball.GetComponent<Rigidbody>().velocity = Direction.normalized * 30f;
             }
         }
        
@@ -84,7 +93,12 @@ public class PlayerMovement : MonoBehaviour
             passing = false;
         }
 
-        if(ballisChild)
+        if (shooting && !shootButton.bPressed)
+        {
+            shooting = false;
+        }
+
+        if (ballisChild)
         {
             ball.transform.SetParent(transform);
         }
@@ -92,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void TriggerHandler(GameObject DribbleBox)
     {      
-         ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+         //ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
          //ball.GetComponent<Rigidbody>().isKinematic = true;
          //ball.GetComponent<Rigidbody>().velocity = Player.velocity;
          //ball.GetComponent<Rigidbody>().AddForce(joyStick.Horizontal, Player.velocity.y, joyStick.Vertical, ForceMode.Force); 
@@ -131,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
     public void TriggerHandlerExit(GameObject DribbleBox)
     {
       
-            ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            //ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
             ball.GetComponent<Rigidbody>().isKinematic = false;
             ball.transform.SetParent(null);
             ballisChild = false;

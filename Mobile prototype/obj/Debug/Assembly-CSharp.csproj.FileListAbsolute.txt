@@ -1,0 +1,2 @@
+D:\Unity\Mobile-Dev\Mobile prototype\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+D:\Unity\Mobile-Dev\Mobile prototype\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
