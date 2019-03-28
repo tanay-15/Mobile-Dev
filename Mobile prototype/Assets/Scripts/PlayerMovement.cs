@@ -128,14 +128,12 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private void OnCollisionExit(Collision collision)
+    public void TriggerHandlerExit(GameObject DribbleBox)
     {
-        if (collision.gameObject.tag == "Ball")
-        {
+      
             ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
             ball.GetComponent<Rigidbody>().isKinematic = false;
             ball.transform.SetParent(null);
             ballisChild = false;
-        }
     }
 }

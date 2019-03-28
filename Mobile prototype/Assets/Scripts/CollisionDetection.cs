@@ -34,4 +34,11 @@ public class CollisionDetection : MonoBehaviour
             playerMovement.TriggerHandler(gameObject);
         }
     }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Ball")
+        {
+            playerMovement.TriggerHandlerExit(gameObject);
+        }
+    }
 }
