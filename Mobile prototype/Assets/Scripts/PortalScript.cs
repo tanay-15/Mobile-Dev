@@ -26,7 +26,7 @@ public class PortalScript : MonoBehaviour
         }
         numberPot = new List<int>();
 
-        playerMovement = FindObjectOfType<PlayerMovement>();
+        //playerMovement = FindObjectOfType<PlayerMovement>();
     }
 
     // Update is called once per frame

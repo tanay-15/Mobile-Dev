@@ -57,7 +57,7 @@ public class AIMovement : MonoBehaviour
         //Shoot();
         GetBallPossession();
 
-        anim.SetBool("Run", true);
+        //anim.SetBool("Run", true);
 
         if (role == PlayerRole.Forward)
         {
@@ -94,7 +94,7 @@ public class AIMovement : MonoBehaviour
                 Debug.DrawRay(this.transform.position, direction * 20f, Color.blue);
 
                 ball.transform.parent = null;
-                ball.GetComponent<Rigidbody>().isKinematic = false;
+                //ball.GetComponent<Rigidbody>().isKinematic = false;
 
                 ball.GetComponent<Rigidbody>().velocity = direction.normalized * 30f;
                 HasBall = false;
@@ -113,7 +113,7 @@ public class AIMovement : MonoBehaviour
             var distance = heading.magnitude;
             var direction = heading / distance;
             ball.transform.parent = null;
-            ball.GetComponent<Rigidbody>().isKinematic = false;
+            //ball.GetComponent<Rigidbody>().isKinematic = false;
 
             ball.GetComponent<Rigidbody>().velocity = direction.normalized * 10f;
             HasBall = false;
@@ -143,6 +143,17 @@ public class AIMovement : MonoBehaviour
             ball.transform.SetParent(transform);
             HasBall = true;
             MoveTowardsBall = false;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ball")
+        {
+            ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            ball.GetComponent<Rigidbody>().isKinematic = false;
+            ball.transform.SetParent(null);
+            HasBall = false;
         }
     }
 
@@ -189,6 +200,7 @@ public class AIMovement : MonoBehaviour
         {
             //Then forward move to forward area for better shot
             this.transform.LookAt(AttackingPosition.transform.position);
+            anim.SetBool("Run", true);
             this.transform.position = Vector3.MoveTowards(this.transform.position, AttackingPosition.transform.position, MoveSpeed * Time.deltaTime);
             if (Vector3.Distance(this.transform.position, AttackingPosition.transform.position) < 2f)
             {
@@ -201,6 +213,7 @@ public class AIMovement : MonoBehaviour
         {
             //Then move to midfield area to defend and counterattack
             this.transform.LookAt(DefendingPosition.transform.position);
+            anim.SetBool("Run", true);
             this.transform.position = Vector3.MoveTowards(this.transform.position, DefendingPosition.transform.position, MoveSpeed * Time.deltaTime);
             if (Vector3.Distance(this.transform.position, DefendingPosition.transform.position) < 2f)
             {
@@ -214,6 +227,7 @@ public class AIMovement : MonoBehaviour
             if (MoveTowardsBall)
             {
                 this.transform.LookAt(ball.transform.position);
+                anim.SetBool("Run", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
 
             }
@@ -222,6 +236,7 @@ public class AIMovement : MonoBehaviour
             {
 
                 this.transform.LookAt(DefendingPosition.transform.position);
+                anim.SetBool("Run", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, DefendingPosition.transform.position, MoveSpeed * Time.deltaTime);
                 if (Vector3.Distance(this.transform.position, DefendingPosition.transform.position) < 2f)
                 {
@@ -238,6 +253,7 @@ public class AIMovement : MonoBehaviour
         if (HasBall)
         {
             this.transform.LookAt(goalPost.transform.position);
+            anim.SetBool("Run", true);
             this.transform.position = Vector3.MoveTowards(this.transform.position, goalPost.transform.position, (MoveSpeed + 1f) * Time.deltaTime);
 
             if(Vector3.Distance(goalPost.transform.position,this.transform.position) < 24f)
@@ -265,6 +281,7 @@ public class AIMovement : MonoBehaviour
             if (MoveTowardsBall)
             {
                 this.transform.LookAt(ball.transform.position);
+                anim.SetBool("Run", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
 
                 if(Vector3.Distance(this.transform.position,ball.transform.position) < 3f)
@@ -283,12 +300,14 @@ public class AIMovement : MonoBehaviour
             if (MoveTowardsBall)
             {
                 this.transform.LookAt(ball.transform.position);
+                anim.SetBool("Run", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
             }
 
             else
             {
                 this.transform.LookAt(DefendingPosition.transform.position);
+                anim.SetBool("Run", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, DefendingPosition.transform.position, MoveSpeed * Time.deltaTime);
 
                 if(Vector3.Distance(this.transform.position,DefendingPosition.transform.position) < 2f)
@@ -312,6 +331,7 @@ public class AIMovement : MonoBehaviour
             else
             {
                 this.transform.LookAt(AttackingPosition.transform.position);
+                anim.SetBool("Run", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, AttackingPosition.transform.position, MoveSpeed * Time.deltaTime);
                 if (Vector3.Distance(this.transform.position, AttackingPosition.transform.position) < 2f)
                 {
