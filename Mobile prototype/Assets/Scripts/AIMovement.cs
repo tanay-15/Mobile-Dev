@@ -162,7 +162,7 @@ public class AIMovement : MonoBehaviour
 
 
 
-    private void OnTriggerEnter(Collider other)
+    public void BallEnter(Collider other)
     {
         if(other.gameObject.tag == "Ball")
         {
@@ -173,7 +173,7 @@ public class AIMovement : MonoBehaviour
 
     }
 
-    private void OnTriggerStay(Collider other)
+    public void BallStay(Collider other)
     {
         if(other.gameObject.tag == "Ball")
         {
@@ -181,7 +181,7 @@ public class AIMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void BallExit(Collider other)
     {
         if(other.gameObject.tag == "Ball")
         {
