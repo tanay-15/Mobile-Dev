@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public bool shooting = false;
     Ball ball;
     float magnitude;
-    public Vector3 Direction;
+    public Vector3 Direction,fdir;
     public bool ballisChild = false;
     private Vector3 warp1pos;
     private Vector3 warp2pos;
@@ -59,31 +59,22 @@ public class PlayerMovement : MonoBehaviour
         {
             var dir = ball.GetComponent<Rigidbody>().transform.position - this.transform.position;
             var dis = dir.magnitude;
-            var fdir = dir / dis;
-            Debug.Log("drawing ray");
-            Debug.Log("Direction : " + fdir);
+            fdir = dir / dis;
+            applyDribbling();
             Debug.DrawRay(transform.position, fdir * 10f, Color.red);
             if (!passing && passButton.pressed)
             {
                 passing = true;
                 ball.transform.SetParent(null);
-                //ball.transform.parent = null;
-                
-                //ball.GetComponent<Rigidbody>().isKinematic = false;
                 ball.GetComponent<Rigidbody>().AddForce((new Vector3(fdir.x,0,fdir.z).normalized) * 20f, ForceMode.Impulse);
-                //ball.GetComponent<Rigidbody>().velocity = Direction.normalized * 20f;
-                //ball.GetComponent<Rigidbody>().velocity;
+                
             }
 
             if(!shooting && shootButton.bPressed)
             {
-                shooting = true;
-                //ball.transform.parent = null;
+                shooting = true;              
                 ball.transform.SetParent(null);
-                Debug.Log("after drawing ray1");
-                //ball.GetComponent<Rigidbody>().isKinematic = false;
-                ball.GetComponent<Rigidbody>().AddForce((new Vector3(fdir.x, fdir.y, fdir.z).normalized) * 40f, ForceMode.Impulse);
-                //ball.GetComponent<Rigidbody>().velocity = Direction.normalized * 30f;
+                ball.GetComponent<Rigidbody>().AddForce((new Vector3(fdir.x, 0, fdir.z).normalized) * 40f, ForceMode.Impulse);
             }
         }
        
@@ -98,40 +89,23 @@ public class PlayerMovement : MonoBehaviour
             shooting = false;
         }
 
-        if (ballisChild)
-        {
-            ball.transform.SetParent(transform);
-        }
     }
 
     public void TriggerHandler(GameObject DribbleBox)
-    {      
-         //ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-         //ball.GetComponent<Rigidbody>().isKinematic = true;
-         //ball.GetComponent<Rigidbody>().velocity = Player.velocity;
-         //ball.GetComponent<Rigidbody>().AddForce(joyStick.Horizontal, Player.velocity.y, joyStick.Vertical, ForceMode.Force); 
-         ball.transform.SetParent(this.transform);
-        
-        //ball.transform.position = other.transform.position;
-
-        ballisChild = true;      
+    {
+        ball.transform.SetParent(transform);
+        ballisChild = true;    
     }
-    //void OnCollisionEnter(Collision other)
-    //{     
-    //    //if(other.gameObject.layer == 10)
-    //    if (other.gameObject.tag == "Ball")
-    //    {
-           
-    //        ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-    //        //ball.GetComponent<Rigidbody>().isKinematic = true;
-    //        //ball.GetComponent<Rigidbody>().velocity = Player.velocity;
-    //        //ball.GetComponent<Rigidbody>().AddForce(joyStick.Horizontal, Player.velocity.y, joyStick.Vertical, ForceMode.Force); 
-    //        ball.transform.SetParent(transform);
-    //        ballisChild = true;
-    //    }
 
-    //}
 
+    void applyDribbling()
+    {
+        
+        //var dir = new Vector3(fdir.x, 0f, fdir.z).normalized;
+        //Debug.Log("fdir value " + fdir);
+        //ball.GetComponent<Rigidbody>().AddForceAtPosition(dir * 0.5f, ball.GetComponent<Rigidbody>().transform.position, ForceMode.Impulse);
+        
+    }
     public void GetTackled(Vector3 _knockbackForce)
     {
         ball.transform.parent = null;

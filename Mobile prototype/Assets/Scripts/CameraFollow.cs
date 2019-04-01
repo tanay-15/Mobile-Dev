@@ -12,12 +12,11 @@ public class CameraFollow : MonoBehaviour
     float minDistance = 22.0f;
     float measuredDistance;
     Collider[] hits;
-   
     
     void Start()
     {
-        ball = GameObject.Find("Ball");
-        Wall = GameObject.Find("Wall");
+        ball = GameObject.FindWithTag("Ball");
+        Wall = GameObject.FindWithTag("Boundary");
         offset = this.transform.position - ball.transform.position;
         
        
@@ -37,31 +36,31 @@ public class CameraFollow : MonoBehaviour
             measuredDistance = Vector3.Distance(hit.transform.position, ball.transform.position);
             //Debug.Log("measured distance " + measuredDistance);
         }
-
+        
         if(measuredDistance < minDistance)
         {
             
-           // makeTransparent();
+            makeTransparent();
 
         }
-        else if(measuredDistance > minDistance)
+        else if(measuredDistance > minDistance && Wall.GetComponent<Renderer>().material.color.a == 0)
         {
-            //makeOpaque();
+            makeOpaque();
         }
     }
 
-    //void makeTransparent()
-    //{
-    //    Color colorToAdjust  = Wall.GetComponent<Renderer>().material.color;
-    //    colorToAdjust.a = 0f;
-    //    Wall.GetComponent<Renderer>().material.color = colorToAdjust;
-    //    //Debug.Log("here");
-    //}
+    void makeTransparent()
+    {
+        Color colorToAdjust = Wall.GetComponent<Renderer>().material.color;
+        colorToAdjust.a = 0f;
+        Wall.GetComponent<Renderer>().material.color = colorToAdjust;
+        
+    }
 
-    //void makeOpaque()
-    //{
-    //    Color normalColor = Wall.GetComponent<Renderer>().material.color;
-    //    normalColor.a = 1f;
-    //    Wall.GetComponent<Renderer>().material.color = normalColor;
-    //}
+    void makeOpaque()
+    {
+        Color normalColor = Wall.GetComponent<Renderer>().material.color;
+        normalColor.a = 255f;
+        Wall.GetComponent<Renderer>().material.color = normalColor;
+    }
 }

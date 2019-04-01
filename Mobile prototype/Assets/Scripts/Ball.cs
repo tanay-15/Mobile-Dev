@@ -38,11 +38,12 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerMovement.ballisChild)
-        {
-            applyDribbling();
-        }
-        else if(!playerMovement.ballisChild && passButton.pressed)
+        //if (playerMovement.ballisChild)
+        //{
+        //    Debug.Log("lets go");
+        //    applyDribbling();
+        //}
+        if(!playerMovement.ballisChild && passButton.pressed)
         {
             checkforPlayers();
         }
@@ -50,15 +51,17 @@ public class Ball : MonoBehaviour
 
     }
 
-    void applyDribbling()
-    {
-        //transform.position = new Vector3(transform.parent.position.x + 0.8f, 2.095f, transform.parent.position.z);
-        //transform.position = new Vector3(playerMovement.Direction.x, 2.095f, playerMovement.Direction.z);
-        //transform.position = Vector3.Lerp(transform.parent.position, playerMovement.Direction, 0.5f);
-        // BallObject.AddForce(playerMovement.Direction * 20f, ForceMode.Acceleration);
-        //this.transform.SetParent(null);
-        //BallObject.velocity = new Vector3(Mathf.Lerp(0, 2, t), playerMovement.GetComponent<Rigidbody>().velocity.y, Mathf.Lerp(0, 2, t));
-    }
+    //public void applyDribbling()
+    //{
+    //    //transform.position = new Vector3(transform.parent.position.x + 0.8f, 2.095f, transform.parent.position.z);
+    //    //transform.position = new Vector3(playerMovement.Direction.x, 2.095f, playerMovement.Direction.z);
+    //    //transform.position = Vector3.Lerp(transform.parent.position, playerMovement.Direction, 0.5f);
+    //    var dir = new Vector3(playerMovement.fdir.x, 0f, playerMovement.fdir.z).normalized;
+    //    Debug.Log("fdir value " + playerMovement.fdir);
+    //    BallObject.AddForceAtPosition(dir * 8f, transform.position,ForceMode.Impulse);
+    //    //this.transform.SetParent(null);
+    //    //BallObject.velocity = new Vector3(Mathf.Lerp(0, 2, t), playerMovement.GetComponent<Rigidbody>().velocity.y, Mathf.Lerp(0, 2, t));
+    //}
     GameObject checkforPlayers()
     {
         Collider[] checkPlayers = Physics.OverlapSphere(this.transform.position, 40f, playerDetect);
@@ -99,7 +102,7 @@ public class Ball : MonoBehaviour
             Team1HasBall = true;
             Team2HasBall = false;
             BallObject.velocity = Vector3.zero;
-            this.transform.SetParent(collision.gameObject.transform);
+           // this.transform.SetParent(collision.gameObject.transform);
 
         }
 
@@ -120,7 +123,7 @@ public class Ball : MonoBehaviour
             Team1HasBall = true;
             Team2HasBall = false;
             BallObject.velocity = Vector3.zero;
-            this.transform.SetParent(collision.gameObject.transform);
+            //this.transform.SetParent(collision.gameObject.transform);
             Ballparent = collision.gameObject;
 
         }

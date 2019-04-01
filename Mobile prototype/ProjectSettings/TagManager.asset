@@ -15,6 +15,7 @@ TagManager:
   - MidArea
   - DefenderArea
   - TackleBox
+  - Boundary
   layers:
   - Default
   - TransparentFX
