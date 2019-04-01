@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PassButton : MonoBehaviour,IPointerUpHandler,IPointerDownHandler
 {
@@ -9,11 +10,13 @@ public class PassButton : MonoBehaviour,IPointerUpHandler,IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        GetComponent<Image>().color = Color.green;
         pressed = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        GetComponent<Image>().color = Color.white;
         pressed = false;
     }
 

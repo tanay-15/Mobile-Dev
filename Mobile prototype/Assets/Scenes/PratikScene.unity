@@ -9508,6 +9508,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 3a74f678ee8f3bd49aacf3de1ae4bcaa,
         type: 3}
+    - target: {fileID: 6859722480088528640, guid: 03d540e27267a84469683ed858ce1816,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859722480088528640, guid: 03d540e27267a84469683ed858ce1816,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859722480088528640, guid: 03d540e27267a84469683ed858ce1816,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03d540e27267a84469683ed858ce1816, type: 3}
 --- !u!1 &2084902063 stripped
