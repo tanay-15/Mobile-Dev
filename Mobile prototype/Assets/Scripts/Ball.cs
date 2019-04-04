@@ -161,24 +161,24 @@ public class Ball : MonoBehaviour
 
     public void BallPossession()
     {
-        //if(this.gameObject.transform.parent == null)
-        //{
-        //    Debug.Log("Nobody has possession of ball");
-        //    Team1HasBall = false;
-        //    Team2HasBall = false;
-        //}
+        if (this.gameObject.transform.parent == null)
+        {
+            Debug.Log("Nobody has possession of ball");
+            Team1HasBall = false;
+            Team2HasBall = false;
+        }
 
-        // else if(this.gameObject.transform.parent.tag == "Team1")
-        //{
-        //    Team1HasBall = true;
-        //    Team2HasBall = false;
-        //}
+        else if (this.gameObject.transform.parent.tag == "Team1")
+        {
+            Team1HasBall = true;
+            Team2HasBall = false;
+        }
 
-        //else if(this.gameObject.transform.parent.tag == "Team2")
-        //{
-        //    Team1HasBall = false;
-        //    Team2HasBall = true;
-        //}
+        else if (this.gameObject.transform.parent.tag == "Team2")
+        {
+            Team1HasBall = false;
+            Team2HasBall = true;
+        }
     }
 
     public bool GetTeam1possession()

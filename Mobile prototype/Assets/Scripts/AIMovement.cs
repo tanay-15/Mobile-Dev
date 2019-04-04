@@ -55,7 +55,7 @@ public class AIMovement : MonoBehaviour
     {
      
         GetBallPossession();
-       
+        ManualBallDetection();
 
         if (role == PlayerRole.Forward)
         {
@@ -72,6 +72,8 @@ public class AIMovement : MonoBehaviour
             
             GoalieBehaviour();
         }
+
+       
     }
 
     void GetBallPossession()
@@ -160,7 +162,13 @@ public class AIMovement : MonoBehaviour
         }
     }
 
-
+    public void ManualBallDetection()
+    {
+        if(Vector3.Distance(this.transform.position,ball.transform.position) < 20f)
+        {
+            MoveTowardsBall = true;
+        }
+    }
 
     public void BallEnter(Collider other)
     {
@@ -204,7 +212,7 @@ public class AIMovement : MonoBehaviour
             //Then forward move to forward area for better shot
             this.transform.LookAt(AttackingPosition.transform.position);
             anim.SetBool("Run", true);
-            this.transform.position = Vector3.MoveTowards(this.transform.position, AttackingPosition.transform.position, MoveSpeed * Time.deltaTime);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(AttackingPosition.transform.position.x,this.transform.position.y,AttackingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
             if (Vector3.Distance(this.transform.position, AttackingPosition.transform.position) < 2f)
             {
                 anim.SetBool("Run", false);
@@ -217,7 +225,7 @@ public class AIMovement : MonoBehaviour
             //Then move to midfield area to defend and counterattack
             this.transform.LookAt(DefendingPosition.transform.position);
             anim.SetBool("Run", true);
-            this.transform.position = Vector3.MoveTowards(this.transform.position, DefendingPosition.transform.position, MoveSpeed * Time.deltaTime);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(DefendingPosition.transform.position.x,this.transform.position.y,DefendingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
             if (Vector3.Distance(this.transform.position, DefendingPosition.transform.position) < 2f)
             {
                 anim.SetBool("Run", false);
@@ -231,7 +239,7 @@ public class AIMovement : MonoBehaviour
             {
                 this.transform.LookAt(ball.transform.position);
                 anim.SetBool("Run", true);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x,this.transform.position.y,ball.transform.position.z), MoveSpeed * Time.deltaTime);
 
             }
 
@@ -240,7 +248,7 @@ public class AIMovement : MonoBehaviour
 
                 this.transform.LookAt(DefendingPosition.transform.position);
                 anim.SetBool("Run", true);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, DefendingPosition.transform.position, MoveSpeed * Time.deltaTime);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(DefendingPosition.transform.position.x, this.transform.position.y, DefendingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
                 if (Vector3.Distance(this.transform.position, DefendingPosition.transform.position) < 2f)
                 {
                     anim.SetBool("Run", false);
@@ -287,7 +295,7 @@ public class AIMovement : MonoBehaviour
             {
                 this.transform.LookAt(ball.transform.position);
                 anim.SetBool("Run", true);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
 
                 if(Vector3.Distance(this.transform.position,ball.transform.position) < 3f)
                 {
@@ -307,14 +315,14 @@ public class AIMovement : MonoBehaviour
                 this.transform.LookAt(ball.transform.position);
                 anim.SetBool("Run", true);
                 Debug.Log("Found ball");
-                this.transform.position = Vector3.MoveTowards(this.transform.position, ball.transform.position, MoveSpeed * Time.deltaTime);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
             }
 
             else
             {
                 this.transform.LookAt(DefendingPosition.transform.position);
                 anim.SetBool("Run", true);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, DefendingPosition.transform.position, MoveSpeed * Time.deltaTime);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(DefendingPosition.transform.position.x, this.transform.position.y, DefendingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
                 Debug.Log("Taking defensive position");
                 if(Vector3.Distance(this.transform.position,DefendingPosition.transform.position) < 2f)
                 {
@@ -339,7 +347,7 @@ public class AIMovement : MonoBehaviour
             {
                 this.transform.LookAt(AttackingPosition.transform.position);
                 anim.SetBool("Run", true);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, AttackingPosition.transform.position, MoveSpeed * Time.deltaTime);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(AttackingPosition.transform.position.x, this.transform.position.y, AttackingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
                 if (Vector3.Distance(this.transform.position, AttackingPosition.transform.position) < 2f)
                 {
                     anim.SetBool("Run", false);

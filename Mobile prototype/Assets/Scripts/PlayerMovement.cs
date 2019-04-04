@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 warp1pos;
     private Vector3 warp2pos;
     private Animator anim;
+
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -33,9 +35,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
-          
+
         
+
+
         Vector3 moveVector = (Vector3.right * joyStick.Horizontal + Vector3.forward * joyStick.Vertical);
 
         anim.SetFloat("SpeedX", joyStick.Horizontal);
@@ -91,12 +94,14 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    
     public void TriggerHandler(GameObject DribbleBox)
     {
         ball.transform.SetParent(transform);
         ballisChild = true;    
     }
 
+    
 
     void applyDribbling()
     {
@@ -124,4 +129,12 @@ public class PlayerMovement : MonoBehaviour
             ball.transform.SetParent(null);
             ballisChild = false;
     }
+
+    //AIMovement when player is not selected
+
+    public bool IsBallChild()
+    {
+        return ballisChild;
+    }
+   
 }

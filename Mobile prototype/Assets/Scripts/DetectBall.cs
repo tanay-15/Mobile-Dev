@@ -28,8 +28,8 @@ public class DetectBall : MonoBehaviour
         FindObjectOfType<AIMovement>().BallExit(other);
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        FindObjectOfType<AIMovement>().BallStay(other);
-    }
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    FindObjectOfType<AIMovement>().BallStay(other);
+    //}
 }

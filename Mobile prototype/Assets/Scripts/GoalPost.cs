@@ -47,13 +47,13 @@ public class GoalPost : MonoBehaviour
             if(this.gameObject.tag == "Team1GoalPost")
             {
                 score = GameManager.instance.Team1Score++;
-                Elimination();
+                //Elimination();
             }
 
             else if(this.gameObject.tag == "Team2GoalPost")
             {
                 score2 = GameManager.instance.Team2Score++;
-                Elimination();
+                //Elimination();
             }
         }
     }
