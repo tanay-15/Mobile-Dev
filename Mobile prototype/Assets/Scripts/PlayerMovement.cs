@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody Player;
     public bool passing = false;
     public bool shooting = false;
+
+    public float movspeed;
     Ball ball;
     float magnitude;
     public Vector3 Direction,fdir;
@@ -48,12 +50,12 @@ public class PlayerMovement : MonoBehaviour
         if (moveVector != Vector3.zero && loaderScript.CameraFirstHalf.activeSelf)
         {
             transform.rotation = Quaternion.LookRotation(moveVector);
-            transform.Translate(moveVector * 8f * Time.deltaTime, Space.World);
+            transform.Translate(moveVector * movspeed * Time.deltaTime, Space.World);
         }
         else if (moveVector != Vector3.zero && loaderScript.CameraSecondHalf.activeSelf)
         {
             transform.rotation = Quaternion.LookRotation(moveVector);
-            transform.Translate(-moveVector * 8f * Time.deltaTime, Space.World);
+            transform.Translate(-moveVector * movspeed * Time.deltaTime, Space.World);
         }
 
 
@@ -115,8 +117,8 @@ public class PlayerMovement : MonoBehaviour
     {
         ball.transform.parent = null;
         ball.GetComponent<Rigidbody>().isKinematic = false;
-        _knockbackForce.Normalize();
-        Player.AddForce(_knockbackForce * 100f);
+        //_knockbackForce.Normalize();
+        //Player.AddForce(_knockbackForce * 100f);
     }
 
 

@@ -29,7 +29,7 @@ public class AIMovement : MonoBehaviour
     public float MoveSpeed;
     public bool HasBall = false;
     [SerializeField]
-    private bool MoveTowardsBall = false;
+    public bool MoveTowardsBall = false;
 
     public bool Team2Possession;
     public bool Team1Possession;
@@ -78,6 +78,7 @@ public class AIMovement : MonoBehaviour
 
     void GetBallPossession()
     {
+        
         Team1Possession = ball.GetTeam1possession();
         Team2Possession = ball.GetTeam2possession();
     }
@@ -129,37 +130,55 @@ public class AIMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Ball")
-        {
+        //if (other.gameObject.tag == "Ball")
+        //{
         
-            ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            ball.transform.SetParent(transform);
-            HasBall = true;
-            MoveTowardsBall = false;
-        }
+        //    ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //    //ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        //    ball.GetComponent<Rigidbody>().isKinematic = true;
+        //    ball.transform.SetParent(transform);
+        //    HasBall = true;
+        //    MoveTowardsBall = false;
+        //}
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        if(collision.gameObject.tag == "Ball")
-        {
-            HasBall = true;
-        }
+        //if(collision.gameObject.tag == "Ball")
+        //{
+        //    HasBall = true;
+        //}
+    }
+
+    public void TriggerHandler(GameObject DribbleBox)
+    {
+        ball.transform.SetParent(transform);
+       //
+       Debug.Log("Scale" + ball.transform.localScale);
+       HasBall = true;
     }
 
 
 
+    public void TriggerHandlerExit(GameObject DribbleBox)
+    {
+
+        //ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        ball.GetComponent<Rigidbody>().isKinematic = false;
+        ball.transform.SetParent(null);
+        HasBall = false;
+    }
+
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "Ball")
-        {
+        //if (collision.gameObject.tag == "Ball")
+        //{
           
-            ball.GetComponent<Rigidbody>().isKinematic = false;
-           ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            ball.transform.SetParent(null);
-            HasBall = false;
-        }
+        //    ball.GetComponent<Rigidbody>().isKinematic = false;
+        //   ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        //    ball.transform.SetParent(null);
+        //    HasBall = false;
+        //}
     }
 
     public void ManualBallDetection()
@@ -172,10 +191,10 @@ public class AIMovement : MonoBehaviour
 
     public void BallEnter(Collider other)
     {
-        if(other.gameObject.tag == "Ball")
-        {
-            MoveTowardsBall = true;
-        }
+        //if(other.gameObject.tag == "Ball")
+        //{
+        //    MoveTowardsBall = true;
+        //}
 
      
 
@@ -183,18 +202,18 @@ public class AIMovement : MonoBehaviour
 
     public void BallStay(Collider other)
     {
-        if(other.gameObject.tag == "Ball")
-        {
-            MoveTowardsBall = true;
-        }
+        //if(other.gameObject.tag == "Ball")
+        //{
+        //    MoveTowardsBall = true;
+        //}
     }
 
     public void BallExit(Collider other)
     {
-        if(other.gameObject.tag == "Ball")
-        {
-            MoveTowardsBall = false;
-        }
+        //if(other.gameObject.tag == "Ball")
+        //{
+        //    MoveTowardsBall = false;
+        //}
     }
 
 
@@ -314,7 +333,7 @@ public class AIMovement : MonoBehaviour
             {
                 this.transform.LookAt(ball.transform.position);
                 anim.SetBool("Run", true);
-                Debug.Log("Found ball");
+
                 this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
             }
 

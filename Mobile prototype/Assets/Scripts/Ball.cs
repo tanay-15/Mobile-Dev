@@ -38,16 +38,18 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        BallPossession();
         //if (playerMovement.ballisChild)
         //{
         //    Debug.Log("lets go");
         //    applyDribbling();
         //}
-        if(!playerMovement.ballisChild && passButton.pressed)
+        if (!playerMovement.ballisChild && passButton.pressed)
         {
             checkforPlayers();
         }
-        BallPossession();
+       
 
     }
 
@@ -102,7 +104,7 @@ public class Ball : MonoBehaviour
             Team1HasBall = true;
             Team2HasBall = false;
             BallObject.velocity = Vector3.zero;
-           // this.transform.SetParent(collision.gameObject.transform);
+            // this.transform.SetParent(collision.gameObject.transform);
 
         }
 
@@ -111,7 +113,7 @@ public class Ball : MonoBehaviour
             Team2HasBall = true;
             Team1HasBall = false;
             BallObject.velocity = Vector3.zero;
-            this.transform.SetParent(collision.gameObject.transform);
+            //this.transform.SetParent(collision.gameObject.transform);
 
         }
     }
@@ -124,7 +126,7 @@ public class Ball : MonoBehaviour
             Team2HasBall = false;
             BallObject.velocity = Vector3.zero;
             //this.transform.SetParent(collision.gameObject.transform);
-            Ballparent = collision.gameObject;
+            //Ballparent = collision.gameObject;
 
         }
 
@@ -133,9 +135,9 @@ public class Ball : MonoBehaviour
             Team2HasBall = true;
             Team1HasBall = false;
             BallObject.velocity = Vector3.zero;
-            this.transform.SetParent(collision.gameObject.transform);
-            collision.gameObject.GetComponent<AIMovement>().HasBall = true;
-            Ballparent = collision.gameObject;
+            //this.transform.SetParent(collision.gameObject.transform);
+          
+            //Ballparent = collision.gameObject;
 
         }
     }
@@ -144,17 +146,17 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.tag == "Team1")
         {
-            this.transform.SetParent(null);
+       
             Team1HasBall = false;
             Team2HasBall = false;
         }
 
         if (collision.gameObject.tag == "Team2")
         {
-            this.transform.SetParent(null);
+        
             Team1HasBall = false;
             Team2HasBall = false;
-            collision.gameObject.GetComponent<AIMovement>().HasBall = true;
+            
         }
     }
 
@@ -170,12 +172,14 @@ public class Ball : MonoBehaviour
 
         else if (this.gameObject.transform.parent.tag == "Team1")
         {
+            Debug.Log("Team 1 has ball");
             Team1HasBall = true;
             Team2HasBall = false;
         }
 
         else if (this.gameObject.transform.parent.tag == "Team2")
         {
+            Debug.Log("Team 2 has ball");
             Team1HasBall = false;
             Team2HasBall = true;
         }

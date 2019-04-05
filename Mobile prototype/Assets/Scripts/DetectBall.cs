@@ -5,9 +5,11 @@ using UnityEngine;
 public class DetectBall : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    AIMovement aiMovement;
     void Start()
     {
-        
+        aiMovement = GetComponentInParent<AIMovement>();
     }
 
     // Update is called once per frame
@@ -20,16 +22,32 @@ public class DetectBall : MonoBehaviour
     {
         FindObjectOfType<AIMovement>().BallEnter(other);
 
+        if(other.gameObject.tag == "Ball")
+        {
+            aiMovement.MoveTowardsBall = true;
+        }
+
 
     }
 
     private void OnTriggerExit(Collider other)
     {
         FindObjectOfType<AIMovement>().BallExit(other);
+
+
+        if (other.gameObject.tag == "Ball")
+        {
+            aiMovement.MoveTowardsBall = false;
+        }
     }
 
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    FindObjectOfType<AIMovement>().BallStay(other);
-    //}
+    private void OnTriggerStay(Collider other)
+    {
+        FindObjectOfType<AIMovement>().BallStay(other);
+
+        if (other.gameObject.tag == "Ball")
+        {
+            aiMovement.MoveTowardsBall = true;
+        }
+    }
 }
