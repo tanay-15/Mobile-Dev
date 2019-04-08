@@ -66,7 +66,7 @@ public class Ball : MonoBehaviour
     //}
     GameObject checkforPlayers()
     {
-        Collider[] checkPlayers = Physics.OverlapSphere(this.transform.position, 40f, playerDetect);
+        Collider[] checkPlayers = Physics.OverlapSphere(this.transform.position, 150f, playerDetect);
         float value = float.PositiveInfinity;
         int index = -1;
         for (int i = 0; i < checkPlayers.Length; i++)
