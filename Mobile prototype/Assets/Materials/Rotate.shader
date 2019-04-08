@@ -4,7 +4,8 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
 		_RotationSpeed("Rotation Speed", Float) = 2.0
-			_TintColor("Tint Color", Color) = (1,1,1,1)
+		_TintColor("Tint Color", Color) = (1,1,1,1)
+			_ColorIntensity("Color Intensity", Float) = 1.0
     }
     SubShader
     {
@@ -39,6 +40,7 @@
             float4 _MainTex_ST;
 			float _RotationSpeed;
 			float4 _TintColor;
+			float _ColorIntensity;
             v2f vert (appdata v)
             {
                 v2f o;
@@ -58,7 +60,8 @@
 				i.uv.xy= mul(i.uv.xy, rotationMatrix);
 				i.uv.xy += 0.5;
                 // sample the texture
-				fixed4 col = tex2D(_MainTex, i.uv);
+				fixed4 col = tex2D(_MainTex, i.uv) ;
+				col.rgb = col.rgb  * _ColorIntensity;
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
