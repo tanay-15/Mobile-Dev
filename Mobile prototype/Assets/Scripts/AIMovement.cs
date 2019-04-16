@@ -10,7 +10,7 @@ public class AIMovement : MonoBehaviour
     public GameObject goalPost;
 
     public TeamAI teamCo;
-
+    public bool WaitAtPosition = false;
     private Animator anim;
 
     public enum PlayerRole
@@ -43,6 +43,7 @@ public class AIMovement : MonoBehaviour
     public float gravity = -18;
  
 
+  
     
 
 
@@ -58,7 +59,7 @@ public class AIMovement : MonoBehaviour
      
         GetBallPossession();
         ManualBallDetection();
-        LeaveControlOfBallDetection();
+       // LeaveControlOfBallDetection();
 
         if (role == PlayerRole.Forward)
         {
@@ -88,6 +89,7 @@ public class AIMovement : MonoBehaviour
 
     void Shoot()
     {
+        teamCo.SetAfterBallEntity();
         if (HasBall)
         {
             var heading =  goalPost.transform.position - this.transform.position;
@@ -104,15 +106,19 @@ public class AIMovement : MonoBehaviour
             ball.GetComponent<Rigidbody>().velocity = direction.normalized * 50f;
                 HasBall = false;
 
-            teamCo.SetAfterBallEntity();
+           
 
 
 
         }
     }
 
-    void Pass(Vector3 _passlocation)
+    void Pass()
     {
+        teamCo.SetAfterBallEntity();
+        TransformLookInstant(teamMate.transform.position);
+       //this.transform.LookAt(teamMate.transform.position);
+        Vector3 _passlocation = teamMate.transform.position;
         if (HasBall)
         {
             var heading = _passlocation - this.transform.position;
@@ -129,7 +135,7 @@ public class AIMovement : MonoBehaviour
             ball.GetComponent<Rigidbody>().velocity = direction.normalized * 30f;
             HasBall = false;
 
-            teamCo.SetAfterBallEntity();
+            
         }
     }
 
@@ -147,6 +153,11 @@ public class AIMovement : MonoBehaviour
         //    HasBall = true;
         //    MoveTowardsBall = false;
         //}
+
+        if(other.gameObject.tag == "Ball")
+        {
+            WaitAtPosition = false;
+        }
     }
 
     private void OnCollisionStay(Collision collision)
@@ -160,8 +171,8 @@ public class AIMovement : MonoBehaviour
     public void TriggerHandler(GameObject DribbleBox)
     {
         ball.transform.SetParent(transform);
-       //
-       Debug.Log("Scale" + ball.transform.localScale);
+  
+       
        HasBall = true;
     }
 
@@ -192,7 +203,7 @@ public class AIMovement : MonoBehaviour
     {
         if (teamCo.afterBall == null)
         {
-            Debug.Log("I am going after the ball guys " + this.gameObject.name);
+           
             if (Vector3.Distance(this.transform.position, ball.transform.position) < 60f)
             {
                 MoveTowardsBall = true;
@@ -201,6 +212,16 @@ public class AIMovement : MonoBehaviour
 
             }
         }
+
+        if(teamCo.afterBall == this.gameObject)
+        {
+            MoveTowardsBall = true;
+        }
+
+        else
+        {
+            MoveTowardsBall = false;
+        }
        
     }
 
@@ -208,7 +229,7 @@ public class AIMovement : MonoBehaviour
     {
         if(teamCo.afterBall == this.gameObject)
         {
-            if (HasBall)
+            if (!HasBall)
             {
                 teamCo.afterBall = null;
             }
@@ -252,67 +273,79 @@ public class AIMovement : MonoBehaviour
     
     void ForwardBehaviour()
     {
-        if (Team2Possession)
+        if (!WaitAtPosition)
         {
-            //Then forward move to forward area for better shot
-            this.transform.LookAt(AttackingPosition.transform.position);
-            anim.SetBool("Run", true);
-            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(AttackingPosition.transform.position.x,this.transform.position.y,AttackingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
-            if (Vector3.Distance(this.transform.position, AttackingPosition.transform.position) < 2f)
+            if (Team2Possession)
             {
-                anim.SetBool("Run", false);
-            }
-
-        }
-
-        if (Team1Possession && !MoveTowardsBall)
-        {
-            //Then move to midfield area to defend and counterattack
-            this.transform.LookAt(DefendingPosition.transform.position);
-            anim.SetBool("Run", true);
-            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(DefendingPosition.transform.position.x,this.transform.position.y,DefendingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
-            if (Vector3.Distance(this.transform.position, DefendingPosition.transform.position) < 2f)
-            {
-                anim.SetBool("Run", false);
-            }
-        }
-
-        if(!Team1Possession && !Team2Possession && teamCo.afterBall != this.gameObject)
-        {
-            //Right now hold ground
-            if (MoveTowardsBall)
-            {
-                this.transform.LookAt(ball.transform.position);
+                //Then forward move to forward area for better shot
+                this.transform.LookAt(AttackingPosition.transform.position);
                 anim.SetBool("Run", true);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x,this.transform.position.y,ball.transform.position.z), MoveSpeed * Time.deltaTime);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(AttackingPosition.transform.position.x, this.transform.position.y, AttackingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
+                if (Vector3.Distance(this.transform.position, AttackingPosition.transform.position) < 2f)
+                {
+                    anim.SetBool("Run", false);
+                }
 
             }
 
-            else
+            if (Team1Possession && !MoveTowardsBall)
             {
-
-                this.transform.LookAt(DefendingPosition.transform.position);
+                //Then move to midfield area to defend and counterattack
+               this.transform.LookAt(DefendingPosition.transform.position);
                 anim.SetBool("Run", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(DefendingPosition.transform.position.x, this.transform.position.y, DefendingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
                 if (Vector3.Distance(this.transform.position, DefendingPosition.transform.position) < 2f)
                 {
                     anim.SetBool("Run", false);
                 }
+            }
+
+            if (!Team1Possession && !Team2Possession && teamCo.afterBall != this.gameObject)
+            {
+                //Right now hold ground
+                if (MoveTowardsBall)
+                {
+                    TransformLooks(ball.transform.position);
+                   // this.transform.LookAt(ball.transform.position);
+                    anim.SetBool("Run", true);
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
+
+                }
+
+                else
+                {
+
+                    this.transform.LookAt(DefendingPosition.transform.position);
+                    anim.SetBool("Run", true);
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(DefendingPosition.transform.position.x, this.transform.position.y, DefendingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
+                    if (Vector3.Distance(this.transform.position, DefendingPosition.transform.position) < 2f)
+                    {
+                        anim.SetBool("Run", false);
+                    }
+
+                }
+            }
+
+            if (teamCo.afterBall == this.gameObject)
+            {
+                if (!HasBall)
+                {
+                    TransformLooks(ball.transform.position);
+                    //this.transform.LookAt(ball.transform.position);
+                    anim.SetBool("Run", true);
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
+
+                }
 
             }
+
+
+
+
+
+           
+
         }
-
-        if(teamCo.afterBall == this.gameObject)
-        {
-            this.transform.LookAt(ball.transform.position);
-            anim.SetBool("Run", true);
-            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
-
-        }
-
-
-
-
 
         //Everyone will shoot when in certain range
 
@@ -322,18 +355,15 @@ public class AIMovement : MonoBehaviour
             anim.SetBool("Run", true);
             this.transform.position = Vector3.MoveTowards(this.transform.position, goalPost.transform.position, (MoveSpeed + 1f) * Time.deltaTime);
 
-            if(Vector3.Distance(goalPost.transform.position,this.transform.position) < 24f)
+            if (Vector3.Distance(goalPost.transform.position, this.transform.position) < 24f)
             {
                 Shoot();
             }
         }
-        
-    }
-
-    void MidBehaviour()
-    {
 
     }
+
+   
 
     void DefenderBeahviour()
     {
@@ -341,109 +371,125 @@ public class AIMovement : MonoBehaviour
         // will not move much
 
         //if the player comes in radius, will tackle him and take ball from him
-
-        if (teamCo.afterBall == this.gameObject)
+        if (!WaitAtPosition)
         {
-            this.transform.LookAt(ball.transform.position);
-            anim.SetBool("Run", true);
-            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
-
-        }
-
-        if (Team1Possession)
-        {
-            if (MoveTowardsBall)
+            if (teamCo.afterBall == this.gameObject)
             {
-                this.transform.LookAt(ball.transform.position);
+                TransformLooks(ball.transform.position);
+               // this.transform.LookAt(ball.transform.position);
                 anim.SetBool("Run", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
 
-                if(Vector3.Distance(this.transform.position,ball.transform.position) < 3f)
+            }
+
+            if (Team1Possession)
+            {
+                if (MoveTowardsBall)
                 {
-                    
-                    ball.transform.parent.gameObject.GetComponent<PlayerMovement>().GetTackled(new Vector3(0f, 5f, -4f));
-                    //ball.transform.SetParent(this.gameObject.transform);
+                    TransformLooks(ball.transform.position);
+                    //this.transform.LookAt(ball.transform.position);
+                    anim.SetBool("Run", true);
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
+
+                    if (Vector3.Distance(this.transform.position, ball.transform.position) < 3f)
+                    {
+
+                        ball.transform.parent.gameObject.GetComponent<PlayerMovement>().GetTackled(new Vector3(0f, 5f, -4f));
+                        //ball.transform.SetParent(this.gameObject.transform);
+                    }
                 }
             }
-        }
 
-        if (!Team1Possession && !Team2Possession && teamCo.afterBall != this.gameObject)
-        {
-            //No one has the ball
-
-            if (MoveTowardsBall)
+            if (!Team1Possession && !Team2Possession && teamCo.afterBall != this.gameObject)
             {
-                this.transform.LookAt(ball.transform.position);
-                anim.SetBool("Run", true);
+                //No one has the ball
 
-                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
-            }
-
-            else
-            {
-                this.transform.LookAt(DefendingPosition.transform.position);
-                anim.SetBool("Run", true);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(DefendingPosition.transform.position.x, this.transform.position.y, DefendingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
-                Debug.Log("Taking defensive position");
-                if(Vector3.Distance(this.transform.position,DefendingPosition.transform.position) < 2f)
+                if (MoveTowardsBall)
                 {
-                    anim.SetBool("Run", false);
+                    TransformLooks(ball.transform.position);
+                   //this.transform.LookAt(ball.transform.position);
+                    anim.SetBool("Run", true);
+
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
+                }
+
+                else
+                {
+                    TransformLooks(DefendingPosition.transform.position);
+                    //this.transform.LookAt(DefendingPosition.transform.position);
+                    anim.SetBool("Run", true);
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(DefendingPosition.transform.position.x, this.transform.position.y, DefendingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
+                    Debug.Log("Taking defensive position");
+                    if (Vector3.Distance(this.transform.position, DefendingPosition.transform.position) < 2f)
+                    {
+                        anim.SetBool("Run", false);
+                    }
                 }
             }
-        }
 
-        if (Team2Possession)
-        {
-            //Team has ball
-
-            if (HasBall)
+            if (Team2Possession)
             {
-                //if this character has ball
-                this.transform.position = Vector3.MoveTowards(this.transform.position, goalPost.transform.position, MoveSpeed * Time.deltaTime);
+                //Team has ball
 
-                Pass(teamMate.transform.position);
-                
-            }
-
-            else
-            {
-                this.transform.LookAt(AttackingPosition.transform.position);
-                anim.SetBool("Run", true);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(AttackingPosition.transform.position.x, this.transform.position.y, AttackingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
-                if (Vector3.Distance(this.transform.position, AttackingPosition.transform.position) < 2f)
+                if (HasBall)
                 {
-                    anim.SetBool("Run", false);
+                    //if this character has ball
+                    this.transform.LookAt(goalPost.transform.position);
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, goalPost.transform.position, MoveSpeed * Time.deltaTime);
+                    teamMate.GetComponent<AIMovement>().StopIdle();
+                    Invoke("Pass", 3f);
+
+                }
+
+                else
+                {
+                    TransformLooks(AttackingPosition.transform.position);
+                    //this.transform.LookAt(AttackingPosition.transform.position);
+                    anim.SetBool("Run", true);
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(AttackingPosition.transform.position.x, this.transform.position.y, AttackingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
+                    if (Vector3.Distance(this.transform.position, AttackingPosition.transform.position) < 2f)
+                    {
+                        anim.SetBool("Run", false);
+                    }
                 }
             }
-        }
 
-        
+        }
 
     }
 
     void GoalieBehaviour()
     {
         //Just kick the ball
-
+        
         if (HasBall){
+            TransformLooks(ball.transform.position);
+            //this.transform.LookAt(ball.transform.position);
             Invoke("GoalieKick", 2f);
+        }
+
+        else
+        {
+            //TransformLooks(AttackingPosition.transform.position);
+            if(Vector3.Distance(this.transform.position,ball.transform.position) < 4f)
+            {
+                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, 0, ball.transform.position.z), 3f * Time.deltaTime);
+            }
+            this.transform.LookAt(goalPost.transform.position);
         }
 
     }
 
-    Vector3 CalculateLaunchVelocity()
+    Vector3 CalculateLaunchVelocity(Vector3 _AttackingPosition)
     {
-        float displacementY = AttackingPosition.transform.position.y - ball.transform.position.y;
+        float displacementY = _AttackingPosition.y - ball.transform.position.y;
 
-        Vector3 displacementXZ = new Vector3(AttackingPosition.transform.position.x - ball.transform.position.x, 0, AttackingPosition.transform.position.z - ball.transform.position.z);
+        Vector3 displacementXZ = new Vector3(_AttackingPosition.x - ball.transform.position.x, 0, _AttackingPosition.z - ball.transform.position.z);
 
         Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * h* gravity);
         Vector3 velocityXZ = displacementXZ/(Mathf.Sqrt(-2*h/gravity) + 1.7785f/* Mathf.Sqrt(2*(displacementY-h))/gravity*/);
 
-        //Debug.Log(Mathf.Sqrt(-2 * h / gravity));
-        //Debug.Log(Mathf.Sqrt(2 * (displacementY - h)) / gravity);
-        //Debug.Log(displacementY);
-        //Debug.Log(velocityXZ);
+     
       
         return velocityXZ + velocityY; 
     }
@@ -460,7 +506,7 @@ public class AIMovement : MonoBehaviour
             ball.transform.SetParent(null);
 
             Physics.gravity = Vector3.up * gravity;
-            ball.GetComponent<Rigidbody>().velocity = CalculateLaunchVelocity();
+            ball.GetComponent<Rigidbody>().velocity = CalculateLaunchVelocity(teamMate.transform.position);
 
 
             HasBall = false;
@@ -471,9 +517,31 @@ public class AIMovement : MonoBehaviour
     }
 
   
-
-    void AIPassing()
+    public void StopIdle()
     {
+        //to get the ball
 
+        MoveTowardsBall = false;
+        anim.SetBool("Run", false);
+        WaitAtPosition = true;
+    }
+
+  void TransformLooks(Vector3 _targetLocation)
+    {
+        Vector3 targetLoc = new Vector3(_targetLocation.x, _targetLocation.y, _targetLocation.z) - this.transform.position;
+
+        Quaternion LookRot = Quaternion.LookRotation(targetLoc, Vector3.up);
+
+        this.transform.rotation = Quaternion.Slerp(transform.rotation, LookRot, Time.deltaTime * 3.0f);
+    }
+
+    void TransformLookInstant(Vector3 _targetLocation)
+    {
+       Vector3 curRot = this.transform.eulerAngles;
+        Vector3 targetLoc = new Vector3(Mathf.Clamp(_targetLocation.x,0,24f), _targetLocation.y, _targetLocation.z) - this.transform.position;
+
+        Quaternion LookRot = Quaternion.LookRotation(targetLoc, Vector3.up);
+        
+        this.transform.rotation = Quaternion.Slerp(transform.rotation, LookRot, Time.deltaTime * 50.0f);
     }
 }
