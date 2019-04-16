@@ -9,6 +9,8 @@ public class AIMovement : MonoBehaviour
     Ball ball;
     public GameObject goalPost;
 
+    public TeamAI teamCo;
+
     private Animator anim;
 
     public enum PlayerRole
@@ -56,6 +58,7 @@ public class AIMovement : MonoBehaviour
      
         GetBallPossession();
         ManualBallDetection();
+        LeaveControlOfBallDetection();
 
         if (role == PlayerRole.Forward)
         {
@@ -100,9 +103,11 @@ public class AIMovement : MonoBehaviour
 
             ball.GetComponent<Rigidbody>().velocity = direction.normalized * 50f;
                 HasBall = false;
-            
 
-           
+            teamCo.SetAfterBallEntity();
+
+
+
         }
     }
 
@@ -123,6 +128,8 @@ public class AIMovement : MonoBehaviour
 
             ball.GetComponent<Rigidbody>().velocity = direction.normalized * 30f;
             HasBall = false;
+
+            teamCo.SetAfterBallEntity();
         }
     }
 
@@ -183,9 +190,28 @@ public class AIMovement : MonoBehaviour
 
     public void ManualBallDetection()
     {
-        if(Vector3.Distance(this.transform.position,ball.transform.position) < 20f)
+        if (teamCo.afterBall == null)
         {
-            MoveTowardsBall = true;
+            Debug.Log("I am going after the ball guys " + this.gameObject.name);
+            if (Vector3.Distance(this.transform.position, ball.transform.position) < 60f)
+            {
+                MoveTowardsBall = true;
+
+                teamCo.afterBall = this.gameObject;
+
+            }
+        }
+       
+    }
+
+    public void LeaveControlOfBallDetection()
+    {
+        if(teamCo.afterBall == this.gameObject)
+        {
+            if (HasBall)
+            {
+                teamCo.afterBall = null;
+            }
         }
     }
 
@@ -251,7 +277,7 @@ public class AIMovement : MonoBehaviour
             }
         }
 
-        if(!Team1Possession && !Team2Possession)
+        if(!Team1Possession && !Team2Possession && teamCo.afterBall != this.gameObject)
         {
             //Right now hold ground
             if (MoveTowardsBall)
@@ -276,7 +302,17 @@ public class AIMovement : MonoBehaviour
             }
         }
 
-       
+        if(teamCo.afterBall == this.gameObject)
+        {
+            this.transform.LookAt(ball.transform.position);
+            anim.SetBool("Run", true);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
+
+        }
+
+
+
+
 
         //Everyone will shoot when in certain range
 
@@ -306,7 +342,13 @@ public class AIMovement : MonoBehaviour
 
         //if the player comes in radius, will tackle him and take ball from him
 
-        
+        if (teamCo.afterBall == this.gameObject)
+        {
+            this.transform.LookAt(ball.transform.position);
+            anim.SetBool("Run", true);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
+
+        }
 
         if (Team1Possession)
         {
@@ -325,7 +367,7 @@ public class AIMovement : MonoBehaviour
             }
         }
 
-        if (!Team1Possession && !Team2Possession)
+        if (!Team1Possession && !Team2Possession && teamCo.afterBall != this.gameObject)
         {
             //No one has the ball
 
@@ -357,7 +399,8 @@ public class AIMovement : MonoBehaviour
             if (HasBall)
             {
                 //if this character has ball
-                Debug.Log("Passing ball");
+                this.transform.position = Vector3.MoveTowards(this.transform.position, goalPost.transform.position, MoveSpeed * Time.deltaTime);
+
                 Pass(teamMate.transform.position);
                 
             }
@@ -374,6 +417,8 @@ public class AIMovement : MonoBehaviour
             }
         }
 
+        
+
     }
 
     void GoalieBehaviour()
@@ -381,7 +426,7 @@ public class AIMovement : MonoBehaviour
         //Just kick the ball
 
         if (HasBall){
-            GoalieKick();
+            Invoke("GoalieKick", 2f);
         }
 
     }
@@ -419,6 +464,8 @@ public class AIMovement : MonoBehaviour
 
 
             HasBall = false;
+
+            teamCo.SetAfterBallEntity();
         }
    
     }

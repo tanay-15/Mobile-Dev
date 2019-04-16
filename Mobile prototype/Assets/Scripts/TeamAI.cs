@@ -6,20 +6,33 @@ public class TeamAI : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public bool TeamHasBall;
+    public GameObject afterBall;
+    public static TeamAI instance = null;
 
-    public int NoOfPlayers;
 
-    public GameObject[] teamPlayers;
-    
-    void Start()
+
+    private void Awake()
     {
-        
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        else if(instance != null)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void SetAfterBallEntity()
+    {
+        afterBall = null;
     }
 }
