@@ -1128,19 +1128,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: BackgroundMusic
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 03b1e7f48ae10394eb4b679dcbaae399, type: 3}
     volume: 0
     pitch: 0
     loop: 0
     source: {fileID: 0}
   - name: Pass
     clip: {fileID: 8300000, guid: 4086362e02085414bb3e93cb6fa67f50, type: 3}
-    volume: 0
-    pitch: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
     volume: 0
     pitch: 0
     loop: 0
@@ -2025,7 +2019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1156251573
 MonoBehaviour:
   m_ObjectHideFlags: 0

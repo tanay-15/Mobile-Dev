@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     PassButton passButton;
     ShootButton shootButton;
     Rigidbody Player;
+    GameObject audioManager;
     public bool passing = false;
     public bool shooting = false;
 
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         ball = FindObjectOfType<Ball>();
         anim = this.GetComponent<Animator>();
         loaderScript = FindObjectOfType<Loader>();
+        audioManager = GameObject.Find("AudioManager");
     }
 
     // Update is called once per frame
@@ -72,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
                 passing = true;
                 ball.transform.SetParent(null);
                 ball.GetComponent<Rigidbody>().AddForce((new Vector3(fdir.x,0,fdir.z).normalized) * 20f, ForceMode.Impulse);
+                audioManager.GetComponent<AudioManager>().Play("Pass");
                 
             }
 
@@ -80,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
                 shooting = true;              
                 ball.transform.SetParent(null);
                 ball.GetComponent<Rigidbody>().AddForce((new Vector3(fdir.x, 0, fdir.z).normalized) * 40f, ForceMode.Impulse);
+                audioManager.GetComponent<AudioManager>().Play("Pass");
             }
         }
        

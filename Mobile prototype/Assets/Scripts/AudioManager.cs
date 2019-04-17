@@ -43,7 +43,7 @@ public class AudioManager : MonoBehaviour
 
         if ((SceneManager.GetSceneByName("PratikScene").isLoaded))
         {
-            PlayMusic("Level1Music");
+            PlayMusic("BackgroundMusic");
         }
 
    
