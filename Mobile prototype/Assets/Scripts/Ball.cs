@@ -82,7 +82,7 @@ public class Ball : MonoBehaviour
             }
 
         }
-        Debug.Log(" selectedPlayer  " + selectedPlayer.name);
+        //Debug.Log(" selectedPlayer  " + selectedPlayer.name);
         return selectedPlayer;
     }
 
@@ -107,6 +107,11 @@ public class Ball : MonoBehaviour
             // this.transform.SetParent(collision.gameObject.transform);
 
         }
+
+        //if(collision.gameObject.layer == 11)
+        //{
+        //    playerMovement.setBallPosition(this.gameObject);
+        //}
 
         if (collision.gameObject.tag == "Team2")
         {
@@ -165,21 +170,21 @@ public class Ball : MonoBehaviour
     {
         if (this.gameObject.transform.parent == null)
         {
-            Debug.Log("Nobody has possession of ball");
+            //Debug.Log("Nobody has possession of ball");
             Team1HasBall = false;
             Team2HasBall = false;
         }
 
         else if (this.gameObject.transform.parent.tag == "Team1")
         {
-            Debug.Log("Team 1 has ball");
+            //Debug.Log("Team 1 has ball");
             Team1HasBall = true;
             Team2HasBall = false;
         }
 
         else if (this.gameObject.transform.parent.tag == "Team2")
         {
-            Debug.Log("Team 2 has ball");
+            //Debug.Log("Team 2 has ball");
             Team1HasBall = false;
             Team2HasBall = true;
         }

@@ -36,7 +36,6 @@ public class CollisionDetection : MonoBehaviour
         {
             if (this.transform.parent.gameObject.tag == "Team1")
             {
-
                 playerMovement.TriggerHandler(gameObject);
             }
             if(this.transform.parent.gameObject.tag == "Team2")
@@ -69,6 +68,7 @@ public class CollisionDetection : MonoBehaviour
 
                 if (shootButton.bPressed)
                 {
+                    ball.transform.SetParent(null);
                     ball.transform.SetParent(other.transform.parent);
                     playerMovement.ballisChild = true;
                 }

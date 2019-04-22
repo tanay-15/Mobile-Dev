@@ -16,7 +16,7 @@ void Start()
         
         ball = FindObjectOfType<Ball>();
         playersinTeam = new List<GameObject>(transform.childCount);
-        Debug.Log("children : " + transform.childCount);
+        
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.GetComponent<PlayerMovement>().enabled = false;

@@ -264,7 +264,7 @@ Transform:
   m_GameObject: {fileID: 132632915}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.178, z: 0.281}
-  m_LocalScale: {x: 0.2194116, y: 1, z: 0.25061}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.25061}
   m_Children: []
   m_Father: {fileID: 1482368438}
   m_RootOrder: 4
@@ -588,7 +588,7 @@ Transform:
   m_GameObject: {fileID: 275671859}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.178, z: 0.281}
-  m_LocalScale: {x: 0.2194116, y: 1, z: 0.25061}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.25061}
   m_Children: []
   m_Father: {fileID: 1257080495}
   m_RootOrder: 4
@@ -988,7 +988,7 @@ PrefabInstance:
     - target: {fileID: 8245026665683650841, guid: 230b53ca168bb3145a8877fe3725ca2a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8245026665683650840, guid: 230b53ca168bb3145a8877fe3725ca2a,
         type: 3}
@@ -1186,7 +1186,7 @@ Transform:
   m_GameObject: {fileID: 699331897}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.178, z: 0.281}
-  m_LocalScale: {x: 0.2194116, y: 1, z: 0.25061}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.25061}
   m_Children: []
   m_Father: {fileID: 1336241361}
   m_RootOrder: 4
@@ -1530,6 +1530,16 @@ PrefabInstance:
         type: 3}
       propertyPath: movspeed
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856999076459875503, guid: ba2af390cfb9a954bbfaff551294adf2,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856999076459875503, guid: ba2af390cfb9a954bbfaff551294adf2,
+        type: 3}
+      propertyPath: ballSpeed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3829853782291050860, guid: ba2af390cfb9a954bbfaff551294adf2, type: 3}
@@ -2120,7 +2130,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1257080494}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f913fc0a7c40dd3438251fdcebec7580, type: 3}
   m_Name: 
@@ -2331,6 +2341,16 @@ PrefabInstance:
       propertyPath: movspeed
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 6856999076459875503, guid: ba2af390cfb9a954bbfaff551294adf2,
+        type: 3}
+      propertyPath: ballSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856999076459875503, guid: ba2af390cfb9a954bbfaff551294adf2,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3829853782291050860, guid: ba2af390cfb9a954bbfaff551294adf2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ba2af390cfb9a954bbfaff551294adf2, type: 3}
@@ -2416,7 +2436,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1336241360}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f913fc0a7c40dd3438251fdcebec7580, type: 3}
   m_Name: 
@@ -2608,7 +2628,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482368437}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f913fc0a7c40dd3438251fdcebec7580, type: 3}
   m_Name: 
@@ -2878,7 +2898,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1603662986}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f913fc0a7c40dd3438251fdcebec7580, type: 3}
   m_Name: 
@@ -3018,6 +3038,16 @@ PrefabInstance:
         type: 3}
       propertyPath: movspeed
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856999076459875503, guid: ba2af390cfb9a954bbfaff551294adf2,
+        type: 3}
+      propertyPath: ballSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856999076459875503, guid: ba2af390cfb9a954bbfaff551294adf2,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 2048
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3829853782291050860, guid: ba2af390cfb9a954bbfaff551294adf2, type: 3}
@@ -3496,7 +3526,7 @@ Transform:
   m_GameObject: {fileID: 1817379148}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.178, z: 0.281}
-  m_LocalScale: {x: 0.2194116, y: 1, z: 0.25061}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.25061}
   m_Children: []
   m_Father: {fileID: 1603662987}
   m_RootOrder: 4
@@ -3617,6 +3647,16 @@ PrefabInstance:
         type: 3}
       propertyPath: movspeed
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856999076459875503, guid: ba2af390cfb9a954bbfaff551294adf2,
+        type: 3}
+      propertyPath: ballSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856999076459875503, guid: ba2af390cfb9a954bbfaff551294adf2,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 2048
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3829853782291050860, guid: ba2af390cfb9a954bbfaff551294adf2, type: 3}
