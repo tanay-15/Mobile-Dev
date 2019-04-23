@@ -89,10 +89,13 @@ public class AIMovement : MonoBehaviour
 
     void Shoot()
     {
+        
+        Vector3 shootPos;
+        shootPos = new Vector3(goalPost.transform.position.x, goalPost.transform.position.y, goalPost.transform.position.z + Random.Range(-5f, 5f));
         teamCo.SetAfterBallEntity();
         if (HasBall)
         {
-            var heading =  goalPost.transform.position - this.transform.position;
+            var heading =  shootPos - this.transform.position;
 
             var distance = heading.magnitude;
 
@@ -136,6 +139,32 @@ public class AIMovement : MonoBehaviour
             HasBall = false;
 
             
+        }
+    }
+
+    void PassTo(Vector3 _TeamMatePosition)
+    {
+        teamCo.SetAfterBallEntity();
+        TransformLookInstant(_TeamMatePosition);
+        //this.transform.LookAt(teamMate.transform.position);
+        Vector3 _passlocation = _TeamMatePosition;
+        if (HasBall)
+        {
+            var heading = _passlocation - this.transform.position;
+
+            var distance = heading.magnitude;
+            var direction = heading / distance;
+
+
+            ball.GetComponent<Rigidbody>().isKinematic = false;
+            ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            ball.transform.SetParent(null);
+            //ball.GetComponent<Rigidbody>().isKinematic = false;
+
+            ball.GetComponent<Rigidbody>().velocity = direction.normalized * 30f;
+            HasBall = false;
+
+
         }
     }
 
@@ -371,6 +400,14 @@ public class AIMovement : MonoBehaviour
         // will not move much
 
         //if the player comes in radius, will tackle him and take ball from him
+
+        if (!Team1Possession && !Team2Possession && teamCo.afterBall == this.gameObject)
+        {
+            TransformLooks(ball.transform.position);
+            // this.transform.LookAt(ball.transform.position);
+            anim.SetBool("Run", true);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
+        }
         if (!WaitAtPosition)
         {
             if (teamCo.afterBall == this.gameObject)
@@ -461,7 +498,10 @@ public class AIMovement : MonoBehaviour
     void GoalieBehaviour()
     {
         //Just kick the ball
-        
+        if(Vector3.Distance(this.transform.position, teamCo.afterBall.transform.position) < 25f)
+        {
+            PassTo(teamCo.transform.position);
+        }
         if (HasBall){
             TransformLooks(ball.transform.position);
             //this.transform.LookAt(ball.transform.position);

@@ -9,6 +9,10 @@ public class Loader : MonoBehaviour
 
     public GameObject gameManager;
 
+    public GameObject startpoint;
+
+    Ball ball;
+
     public float GameTimer;
 
     public GameObject CameraFirstHalf;
@@ -30,6 +34,9 @@ public class Loader : MonoBehaviour
 
     private void Awake()
     {
+
+        ball = FindObjectOfType<Ball>();
+        ball.transform.position = startpoint.transform.position;
         if (GameManager.instance == null)
         {
             Instantiate(gameManager);

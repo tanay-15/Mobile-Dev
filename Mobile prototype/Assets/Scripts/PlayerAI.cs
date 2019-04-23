@@ -9,9 +9,14 @@ public class PlayerAI : MonoBehaviour
     public bool Team1Possession;
     public bool Team2Possession;
     public bool IsBallChild;
+
+    public GameObject currentPlayer;
+
+    private Animator anim;
     void Start()
     {
         ball = FindObjectOfType<Ball>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -19,7 +24,7 @@ public class PlayerAI : MonoBehaviour
     {
         IsBallChild = GetComponent<PlayerMovement>().IsBallChild();
         GetBallPossession();
-        AIMovement();
+        AI();
     }
 
     void GetBallPossession()
@@ -28,13 +33,37 @@ public class PlayerAI : MonoBehaviour
         Team2Possession = ball.GetTeam2possession();
     }
 
-    public void AIMovement()
-    {
-        if (Team1Possession)
+    
+    public void AI()
+{
+        currentPlayer = ball.GetComponent<Ball>().ReturnSelectedPlayer();
+
+        if(currentPlayer != this.gameObject)
         {
-            if (!IsBallChild)
+            //As long as this player is not
+
+            if (Team1Possession)
             {
-                this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, this.transform.position.z), 4f * Time.deltaTime);
+                if (!IsBallChild)
+                {
+                    anim.SetBool("Run", true);
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, this.transform.position.z), 4f * Time.deltaTime);
+                }
+            }
+
+            if (!Team1Possession)
+            {
+                if(Vector3.Distance(ball.transform.position, this.transform.position) < 12f)
+                {
+                    anim.SetBool("Run", true);
+                    this.transform.LookAt(new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z));
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), 6f * Time.deltaTime);
+                }
+            }
+
+            if (IsBallChild)
+            {
+                ball.GetComponent<Ball>().SetSelectedPlayer(this.gameObject);
             }
         }
     }

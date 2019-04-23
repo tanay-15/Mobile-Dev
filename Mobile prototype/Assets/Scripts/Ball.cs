@@ -200,5 +200,16 @@ public class Ball : MonoBehaviour
         return Team2HasBall;
     }
 
+    public GameObject ReturnSelectedPlayer()
+    {
+        return selectedPlayer;
+    }
+
+
+    public void SetSelectedPlayer(GameObject _selectedPlayer)
+    {
+        selectedPlayer = _selectedPlayer;
+    }
+
    
 }
