@@ -15,7 +15,8 @@ public class ShootButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        GetComponent<Image>().color = Color.white;
+        //GetComponent<Image>().color = Color.white;
+        GetComponent<Image>().color = new Color(1, 0.08018869f, 0.08018869f);
         bPressed = false;
     }
     // Start is called before the first frame update

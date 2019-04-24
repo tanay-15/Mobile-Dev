@@ -16,7 +16,9 @@ public class PassButton : MonoBehaviour,IPointerUpHandler,IPointerDownHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        GetComponent<Image>().color = Color.white;
+        //GetComponent<Image>().color = Color.blue;
+
+        GetComponent<Image>().color = new Color(0.0235849f, 0.7081457f, 1);
         pressed = false;
     }
 
