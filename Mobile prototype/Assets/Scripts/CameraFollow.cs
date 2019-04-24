@@ -9,6 +9,7 @@ public class CameraFollow : MonoBehaviour
     public GameObject ball;
     public LayerMask wallLayerMask;
     public GameObject Wall;
+    public float cameraSpeed;
     float minDistance = 22.0f;
     float measuredDistance;
     Collider[] hits;
@@ -26,7 +27,7 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         Vector3 position = ball.transform.position + offset;
-        transform.position = Vector3.Slerp(transform.position, position, 1.0f);
+        transform.position = Vector3.Slerp(transform.position, position, 0.025f * cameraSpeed);
 
 
         hits = Physics.OverlapSphere(this.transform.position, 50f, wallLayerMask);
