@@ -10,8 +10,11 @@ public class AIMovement : MonoBehaviour
     public GameObject goalPost;
 
     public TeamAI teamCo;
+    public GameObject passMate;
     public bool WaitAtPosition = false;
     private Animator anim;
+
+    private int value;
 
     public enum PlayerRole
     {
@@ -41,10 +44,16 @@ public class AIMovement : MonoBehaviour
 
     public float h = 20;
     public float gravity = -18;
- 
 
-  
-    
+    public GameObject[] others;
+
+    //For Goalie
+
+    public GameObject point1;
+    public GameObject point2;
+
+    private bool GoToOne = true;
+    private bool GoToTwo;
 
 
     void Start()
@@ -119,8 +128,8 @@ public class AIMovement : MonoBehaviour
     void Pass()
     {
         teamCo.SetAfterBallEntity();
-        TransformLookInstant(teamMate.transform.position);
-       //this.transform.LookAt(teamMate.transform.position);
+        
+       this.transform.LookAt(teamMate.transform.position);
         Vector3 _passlocation = teamMate.transform.position;
         if (HasBall)
         {
@@ -145,8 +154,8 @@ public class AIMovement : MonoBehaviour
     void PassTo(Vector3 _TeamMatePosition)
     {
         teamCo.SetAfterBallEntity();
-        TransformLookInstant(_TeamMatePosition);
-        //this.transform.LookAt(teamMate.transform.position);
+       
+        this.transform.LookAt(_TeamMatePosition);
         Vector3 _passlocation = _TeamMatePosition;
         if (HasBall)
         {
@@ -334,8 +343,8 @@ public class AIMovement : MonoBehaviour
                 //Right now hold ground
                 if (MoveTowardsBall)
                 {
-                    TransformLooks(ball.transform.position);
-                   // this.transform.LookAt(ball.transform.position);
+                    
+                   this.transform.LookAt(new Vector3(ball.transform.position.x,this.transform.position.y,ball.transform.position.z));
                     anim.SetBool("Run", true);
                     this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
 
@@ -359,8 +368,8 @@ public class AIMovement : MonoBehaviour
             {
                 if (!HasBall)
                 {
-                    TransformLooks(ball.transform.position);
-                    //this.transform.LookAt(ball.transform.position);
+                   
+                    this.transform.LookAt(new Vector3(ball.transform.position.x,this.transform.position.y,ball.transform.position.z));
                     anim.SetBool("Run", true);
                     this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
 
@@ -403,8 +412,8 @@ public class AIMovement : MonoBehaviour
 
         if (!Team1Possession && !Team2Possession && teamCo.afterBall == this.gameObject)
         {
-            TransformLooks(ball.transform.position);
-            // this.transform.LookAt(ball.transform.position);
+            
+            this.transform.LookAt(new Vector3(ball.transform.position.x,this.transform.position.y,ball.transform.position.z));
             anim.SetBool("Run", true);
             this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
         }
@@ -412,8 +421,8 @@ public class AIMovement : MonoBehaviour
         {
             if (teamCo.afterBall == this.gameObject)
             {
-                TransformLooks(ball.transform.position);
-               // this.transform.LookAt(ball.transform.position);
+                //TransformLooks(ball.transform.position);
+                this.transform.LookAt(new Vector3(ball.transform.position.x,this.transform.position.y,ball.transform.position.z));
                 anim.SetBool("Run", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
 
@@ -423,8 +432,8 @@ public class AIMovement : MonoBehaviour
             {
                 if (MoveTowardsBall)
                 {
-                    TransformLooks(ball.transform.position);
-                    //this.transform.LookAt(ball.transform.position);
+                    //TransformLooks(ball.transform.position);
+                    this.transform.LookAt(new Vector3(ball.transform.position.x,this.transform.position.y,ball.transform.position.z));
                     anim.SetBool("Run", true);
                     this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
 
@@ -443,8 +452,8 @@ public class AIMovement : MonoBehaviour
 
                 if (MoveTowardsBall)
                 {
-                    TransformLooks(ball.transform.position);
-                   //this.transform.LookAt(ball.transform.position);
+                    //TransformLooks(ball.transform.position);
+                   this.transform.LookAt(new Vector3(ball.transform.position.x,this.transform.position.y,ball.transform.position.z));
                     anim.SetBool("Run", true);
 
                     this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, this.transform.position.y, ball.transform.position.z), MoveSpeed * Time.deltaTime);
@@ -452,11 +461,11 @@ public class AIMovement : MonoBehaviour
 
                 else
                 {
-                    TransformLooks(DefendingPosition.transform.position);
-                    //this.transform.LookAt(DefendingPosition.transform.position);
+                    //TransformLooks(DefendingPosition.transform.position);
+                    this.transform.LookAt(DefendingPosition.transform.position);
                     anim.SetBool("Run", true);
                     this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(DefendingPosition.transform.position.x, this.transform.position.y, DefendingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
-                    Debug.Log("Taking defensive position");
+
                     if (Vector3.Distance(this.transform.position, DefendingPosition.transform.position) < 2f)
                     {
                         anim.SetBool("Run", false);
@@ -473,15 +482,17 @@ public class AIMovement : MonoBehaviour
                     //if this character has ball
                     this.transform.LookAt(goalPost.transform.position);
                     this.transform.position = Vector3.MoveTowards(this.transform.position, goalPost.transform.position, MoveSpeed * Time.deltaTime);
-                    teamMate.GetComponent<AIMovement>().StopIdle();
-                    Invoke("Pass", 3f);
+
+                    int passValue;
+                    passValue = RandomGenerator();
+                    Invoke("Passing", passValue);
 
                 }
 
                 else
                 {
-                    TransformLooks(AttackingPosition.transform.position);
-                    //this.transform.LookAt(AttackingPosition.transform.position);
+                    //TransformLooks(AttackingPosition.transform.position);
+                    this.transform.LookAt(AttackingPosition.transform.position);
                     anim.SetBool("Run", true);
                     this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(AttackingPosition.transform.position.x, this.transform.position.y, AttackingPosition.transform.position.z), MoveSpeed * Time.deltaTime);
                     if (Vector3.Distance(this.transform.position, AttackingPosition.transform.position) < 2f)
@@ -501,10 +512,11 @@ public class AIMovement : MonoBehaviour
         if(Vector3.Distance(this.transform.position, teamCo.afterBall.transform.position) < 25f)
         {
             PassTo(teamCo.transform.position);
+
         }
         if (HasBall){
-            TransformLooks(ball.transform.position);
-            //this.transform.LookAt(ball.transform.position);
+            //TransformLooks(ball.transform.position);
+            this.transform.LookAt(new Vector3(ball.transform.position.x,this.transform.position.y,ball.transform.position.z));
             Invoke("GoalieKick", 2f);
         }
 
@@ -514,6 +526,32 @@ public class AIMovement : MonoBehaviour
             if(Vector3.Distance(this.transform.position,ball.transform.position) < 4f)
             {
                 this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(ball.transform.position.x, 0, ball.transform.position.z), 3f * Time.deltaTime);
+            }
+
+            else
+            {
+                if (GoToOne)
+                {
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, point1.transform.position, 1.5f * Time.deltaTime);
+
+                    if(Vector3.Distance(this.transform.position,point1.transform.position) < 1f)
+                    {
+                        GoToOne = false;
+                        GoToTwo = true;
+                    }
+                }
+
+                if (GoToTwo)
+                {
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, point2.transform.position, 1.5f * Time.deltaTime);
+
+                    if(Vector3.Distance(this.transform.position,point2.transform.position) < 1f)
+                    {
+                        GoToOne = true;
+                        GoToTwo = false;
+                    }
+                }
+               
             }
             this.transform.LookAt(goalPost.transform.position);
         }
@@ -566,6 +604,14 @@ public class AIMovement : MonoBehaviour
         WaitAtPosition = true;
     }
 
+    int RandomGenerator()
+    {
+        value = Random.Range(1, 3);
+
+
+        return value;
+    }
+
   void TransformLooks(Vector3 _targetLocation)
     {
         Vector3 targetLoc = new Vector3(_targetLocation.x, _targetLocation.y, _targetLocation.z) - this.transform.position;
@@ -575,13 +621,32 @@ public class AIMovement : MonoBehaviour
         this.transform.rotation = Quaternion.Slerp(transform.rotation, LookRot, Time.deltaTime * 3.0f);
     }
 
-    void TransformLookInstant(Vector3 _targetLocation)
+ 
+    GameObject PassDecider()
     {
-       Vector3 curRot = this.transform.eulerAngles;
-        Vector3 targetLoc = new Vector3(Mathf.Clamp(_targetLocation.x,0,24f), _targetLocation.y, _targetLocation.z) - this.transform.position;
+        if (HasBall)
+        {
+            float minDistance = 100f;
+            foreach(GameObject go in others)
+            {
+                if(Vector3.Distance(this.transform.position,go.transform.position) < minDistance)
+                {
+                    minDistance = Vector3.Distance(this.transform.position, go.transform.position);
+                    passMate = go.gameObject;
+                }
+            }
 
-        Quaternion LookRot = Quaternion.LookRotation(targetLoc, Vector3.up);
-        
-        this.transform.rotation = Quaternion.Slerp(transform.rotation, LookRot, Time.deltaTime * 50.0f);
+            return passMate;
+          
+        }
+
+        return null;
+    }
+
+   void Passing()
+    {
+        GameObject passTo = PassDecider();
+        passTo.GetComponent<AIMovement>().StopIdle();
+        PassTo(passTo.transform.position);
     }
 }

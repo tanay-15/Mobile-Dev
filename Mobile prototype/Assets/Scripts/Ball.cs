@@ -91,11 +91,13 @@ public class Ball : MonoBehaviour
       
         if(collision.gameObject.tag == "Team1GoalPost")
         {
+            BallObject.velocity = Vector3.zero;
             this.transform.position = startpoint.transform.position;
         }
 
         if (collision.gameObject.tag == "Team2GoalPost")
         {
+            BallObject.velocity = Vector3.zero;
             this.transform.position = startpoint.transform.position;
         }
 
