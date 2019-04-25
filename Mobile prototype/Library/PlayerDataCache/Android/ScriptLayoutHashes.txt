@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-D:/Unity/Mobile-Dev/Mobile prototype/FootballWarp.apk
+C:/Users/prati/Documents/GitHub/Mobile-Dev/Mobile prototype/Build/FinalBuild.apk
 SceneListBegin?
 Assets/Scenes/PratikScene.unity
 SceneListEnd?
@@ -143,7 +143,7 @@ b48c8d99d321541a536d9c6093f31c5d Assembly-CSharp.dll:.Player2DExample
 3e345838d555e3f0f0a651f8c577cd84 Unity.RenderPipelines.Lightweight.Runtime.dll:UnityEngine.Experimental.Rendering.LightweightPipeline.LightweightRenderPipelineAsset
 f8344f99efa5f3909db3fb40406c024d Assembly-CSharp.dll:.FloatingJoystick
 0923d4d8c92086e8cbffb884188ba634 Assembly-CSharp.dll:.WarpHoles
-8316caa541ef7724d22714c56a7a116c Assembly-CSharp.dll:.AIMovement
+2979fc00a9d60604c8135547c081226c Assembly-CSharp.dll:.AIMovement
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 400574be6b0c3414a9912341827de045 Assembly-CSharp.dll:.PassButton
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl
@@ -154,6 +154,7 @@ a53651ee3996fbba20dfe0fce02f0b23 Unity.Postprocessing.Runtime.dll:UnityEngine.Re
 50c443b12ccc0b475183318b5088bcc5 Unity.Postprocessing.Runtime.dll:UnityEngine.Rendering.PostProcessing.PostProcessDebug
 4fd8bf02e3089425d3502e26c44ba31a Unity.TextMeshPro.dll:TMPro.TextContainer
 4d51d5ccf37d2089bdfe827617b784ff Unity.RenderPipelines.Core.Runtime.dll:UnityEngine.Experimental.Rendering.VolumeProfile
+ccd58c367dd44545220df0065e2bf410 Assembly-CSharp.dll:.RulesScript
 f050e4ebd311386367bb1906f9218b01 Unity.RenderPipelines.Lightweight.Runtime.dll:UnityEngine.Experimental.Rendering.LightweightPipeline.LWRPAdditionalLightData
 e6ae40841db498b6e673877ac45ad208 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
@@ -170,7 +171,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 510fefd6a544e16a3ffefa557ddcba39 Unity.TextMeshPro.dll:TMPro.PackageResourceImporterWindow
-0f8a6ae119a23a5d833aff2ba536839e Assembly-CSharp.dll:.PlayerAI
+f8108a02d1408158102716064db1dec4 Assembly-CSharp.dll:.PlayerAI
 66056c2209ff8e6b238f8b056c7eb331 Assembly-CSharp.dll:.AudioManager
 aa82b3ce4c0c9b227036c0337315c5d3 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 e51c09a4cc447f11db225afcd8e3e490 Unity.TextMeshPro.dll:TMPro.TMP_Settings
@@ -191,19 +192,19 @@ fb6a1ea36b4f6ef5948d283d93760765 UnityEngine.GoogleAudioSpatializer.dll:UnityEng
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.DetectBall
-e6d2731666d62ec81de1f167c6e09ef2 Assembly-CSharp.dll:.CameraFollow
+d9e217c9d29826a1aa103063a1b9bb0e Assembly-CSharp.dll:.CameraFollow
 24f8e55e708a1c8ba0093e1953cd3018 Assembly-CSharp.dll:.VariableJoystick
 8421fc920787f3c08a233c7c8901a9fb Assembly-CSharp.dll:.GameManager
 b9c6f7358c6c4a116c264d7c7f6f08b1 Unity.RenderPipelines.Lightweight.Runtime.dll:UnityEngine.Experimental.Rendering.LightweightPipeline.LightweightRenderPipelineEditorResources
 58e68364412c67eae2bdb4954be2dcc2 Assembly-CSharp.dll:.Readme
 a4f0a4f62100f1a4fb5cbe0e00dde83f Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
-eadbf2793842cc64d667ef9a3f73ebc1 Assembly-CSharp.dll:.PlayerMovement
+81bd7679fbf92257ce319c6f77dd2f86 Assembly-CSharp.dll:.PlayerMovement
 5fc094978ce3e3591a7500ed380d854a Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.CollisionDetection
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.tackleScript
-d876b437d87eeaeb40553e1c39552bd9 Assembly-CSharp.dll:.TeamAI
-7d277a500bbe251f3f0d851a6d6ec416 Assembly-CSharp.dll:.Loader
+813d9512a9eb84ee6bde959b79c9d2c8 Assembly-CSharp.dll:.TeamAI
+a07d541abc88c52a374e1bde4c55636c Assembly-CSharp.dll:.Loader
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 fef5db67b88caf387d3f28fbd775d3da Assembly-CSharp.dll:.CountDown
 d5630f96bd5a6a6eed7e1754c3fb8703 Unity.Postprocessing.Runtime.dll:UnityEngine.Rendering.PostProcessing.PostProcessVolume

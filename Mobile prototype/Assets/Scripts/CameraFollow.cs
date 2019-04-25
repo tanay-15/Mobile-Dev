@@ -27,7 +27,7 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         Vector3 position = ball.transform.position + offset;
-        transform.position = Vector3.Slerp(transform.position, position, 0.025f * cameraSpeed);
+        transform.position = Vector3.Slerp(transform.position, position, 0.25f * cameraSpeed);
 
 
         hits = Physics.OverlapSphere(this.transform.position, 50f, wallLayerMask);
